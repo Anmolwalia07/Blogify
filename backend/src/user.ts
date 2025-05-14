@@ -1,0 +1,141 @@
+import { Hono } from "hono";
+import { sign, verify } from 'hono/jwt'
+import { PrismaClient } from './generated/prisma/edge'
+import { withAccelerate } from '@prisma/extension-accelerate'
+import {signinInput , signupInput} from '@anmolwalia07/medium-common'
+
+
+export const userRouter=new Hono<
+{
+    Bindings:{
+        DATABASE_URL:string,
+        JWT_SECRET:string
+    }
+    Variables:Variables
+}>()
+
+type Variables={
+  userId:string
+}
+
+userRouter.post('/register', async (c) => {
+	const prisma = new PrismaClient({
+		datasourceUrl: c.env?.DATABASE_URL	,
+	}).$extends(withAccelerate());
+
+
+	const body = await c.req.json();
+
+    const response=signupInput.safeParse(body);
+
+  if(!response.success){
+    c.status(400)
+    return c.json({message:"Invaild Details"});
+  }
+	try {
+
+    const existUser=await prisma.user.findFirst({
+      where:{
+        email:body.email
+      }
+    })
+
+    if(existUser){
+      c.status(400)
+      return c.json({message :"Email already exists"});
+    }
+
+		const user = await prisma.user.create({
+			data: {
+				email: body.email,
+				password: body.password,
+        name:body.name
+			}
+		});
+    c.status(201)
+		return c.json({message:"SignUp Successfully"})
+	} catch(e) {
+		c.status(403);
+		return c.json({ message: "Internal Error"});
+	}
+})
+
+
+userRouter.post("/login",async(c)=>{
+  const prisma = new PrismaClient({
+		datasourceUrl: c.env?.DATABASE_URL	,
+	}).$extends(withAccelerate());
+
+  const body=await c.req.json();
+  const response=signinInput.safeParse(body)
+  if(!response.success){
+    c.status(401)
+    return c.json({message:"Invaild Details"});
+  }
+  const {email,password}=body
+  try{
+    const user=await prisma.user.findUnique({
+      where:{
+        email:email
+      }
+    })
+    if(!user){
+      c.status(401)
+      return c.json({message :"Invaild Email"})
+    }
+  
+    const isMatch=(user.password===password);
+    if(!isMatch){
+      c.status(400)
+      return c.json({message :"Invaild Password"});
+    }
+
+    const jwt = await sign({ id: user.id ,exp: Math.floor(Date.now() / 1000) + 60 * 60}, c.env.JWT_SECRET,);
+		c.status(201)
+    return c.json({ jwt });
+  }
+  catch(e){
+    c.status(401);
+    return c.json({message:"Internal Error"})
+  }
+})
+
+userRouter.use("/user/*",async(c,next)=>{
+  const token=c.req.header("Authorization")?.split(" ")[1];
+  if(!token){
+    return c.json({message :"No token"})
+  }
+  try{
+    const decode=await verify(token,c.env.JWT_SECRET);
+  if(!decode){
+    return c.json({message:"Unauthorised"})
+  }
+  //@ts-ignore
+  if(decode?.exp<=(Math.floor(Date.now() / 1000) + 60 * 1)){
+    return c.json({message:"Token expire"})
+  }
+  c.set('userId',String(decode.id))
+  await next();
+  }catch(e){
+    return c.json({message:"unauthorised"})
+  }
+})
+
+userRouter.get("/user/profile",async (c)=>{
+  const prisma = new PrismaClient({
+		datasourceUrl: c.env?.DATABASE_URL	,
+	}).$extends(withAccelerate());
+  const id=Number(c.get("userId"));
+  try{
+    const user=await prisma.user.findUnique({
+      where:{
+        id:id
+      }
+    })
+
+    return c.json({user:user})
+  }
+  catch(e){
+    return c.json({message:"Internal Error"})
+  }
+})

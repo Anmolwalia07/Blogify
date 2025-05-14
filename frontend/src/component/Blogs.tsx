@@ -7,6 +7,7 @@ import { FaBookmark } from "react-icons/fa";
 
 
 function Blogs() {
+  //@ts-ignore
   const [likeCount, setLikeCount] = useState(20);
   const [isLiked,setIsLiked]=useState(false);
   const [isSaved, setIsSaved] = useState(false);

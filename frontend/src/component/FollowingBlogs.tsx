@@ -4,6 +4,7 @@ import { CiHeart } from "react-icons/ci";
 import { CiBookmark } from "react-icons/ci";
 import { FaBookmark } from "react-icons/fa";
 function FollowingBlogs() {
+    //@ts-ignore
     const [likeCount, setLikeCount] = useState(20);
   const [isLiked,setIsLiked]=useState(false);
   const [isSaved, setIsSaved] = useState(false);

@@ -2425,6 +2425,7 @@ export namespace Prisma {
     likeCount: number | null
     savedCount: number | null
     createdAt: Date | null
+    updatedAt: Date | null
   }
 
   export type PostMaxAggregateOutputType = {
@@ -2436,6 +2437,7 @@ export namespace Prisma {
     likeCount: number | null
     savedCount: number | null
     createdAt: Date | null
+    updatedAt: Date | null
   }
 
   export type PostCountAggregateOutputType = {
@@ -2447,6 +2449,7 @@ export namespace Prisma {
     likeCount: number
     savedCount: number
     createdAt: number
+    updatedAt: number
     _all: number
   }
 
@@ -2474,6 +2477,7 @@ export namespace Prisma {
     likeCount?: true
     savedCount?: true
     createdAt?: true
+    updatedAt?: true
   }
 
   export type PostMaxAggregateInputType = {
@@ -2485,6 +2489,7 @@ export namespace Prisma {
     likeCount?: true
     savedCount?: true
     createdAt?: true
+    updatedAt?: true
   }
 
   export type PostCountAggregateInputType = {
@@ -2496,6 +2501,7 @@ export namespace Prisma {
     likeCount?: true
     savedCount?: true
     createdAt?: true
+    updatedAt?: true
     _all?: true
   }
 
@@ -2594,6 +2600,7 @@ export namespace Prisma {
     likeCount: number
     savedCount: number
     createdAt: Date
+    updatedAt: Date
     _count: PostCountAggregateOutputType | null
     _avg: PostAvgAggregateOutputType | null
     _sum: PostSumAggregateOutputType | null
@@ -2624,6 +2631,7 @@ export namespace Prisma {
     likeCount?: boolean
     savedCount?: boolean
     createdAt?: boolean
+    updatedAt?: boolean
     author?: boolean | UserDefaultArgs<ExtArgs>
     savedBy?: boolean | Post$savedByArgs<ExtArgs>
     likedBy?: boolean | Post$likedByArgs<ExtArgs>
@@ -2639,6 +2647,7 @@ export namespace Prisma {
     likeCount?: boolean
     savedCount?: boolean
     createdAt?: boolean
+    updatedAt?: boolean
     author?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["post"]>
 
@@ -2651,6 +2660,7 @@ export namespace Prisma {
     likeCount?: boolean
     savedCount?: boolean
     createdAt?: boolean
+    updatedAt?: boolean
     author?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["post"]>
 
@@ -2663,9 +2673,10 @@ export namespace Prisma {
     likeCount?: boolean
     savedCount?: boolean
     createdAt?: boolean
+    updatedAt?: boolean
   }
 
-  export type PostOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "content" | "published" | "authorId" | "likeCount" | "savedCount" | "createdAt", ExtArgs["result"]["post"]>
+  export type PostOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "content" | "published" | "authorId" | "likeCount" | "savedCount" | "createdAt" | "updatedAt", ExtArgs["result"]["post"]>
   export type PostInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     author?: boolean | UserDefaultArgs<ExtArgs>
     savedBy?: boolean | Post$savedByArgs<ExtArgs>
@@ -2695,6 +2706,7 @@ export namespace Prisma {
       likeCount: number
       savedCount: number
       createdAt: Date
+      updatedAt: Date
     }, ExtArgs["result"]["post"]>
     composites: {}
   }
@@ -3129,6 +3141,7 @@ export namespace Prisma {
     readonly likeCount: FieldRef<"Post", 'Int'>
     readonly savedCount: FieldRef<"Post", 'Int'>
     readonly createdAt: FieldRef<"Post", 'DateTime'>
+    readonly updatedAt: FieldRef<"Post", 'DateTime'>
   }
     
 
@@ -5780,7 +5793,8 @@ export namespace Prisma {
     authorId: 'authorId',
     likeCount: 'likeCount',
     savedCount: 'savedCount',
-    createdAt: 'createdAt'
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
   };
 
   export type PostScalarFieldEnum = (typeof PostScalarFieldEnum)[keyof typeof PostScalarFieldEnum]
@@ -5966,6 +5980,7 @@ export namespace Prisma {
     likeCount?: IntFilter<"Post"> | number
     savedCount?: IntFilter<"Post"> | number
     createdAt?: DateTimeFilter<"Post"> | Date | string
+    updatedAt?: DateTimeFilter<"Post"> | Date | string
     author?: XOR<UserScalarRelationFilter, UserWhereInput>
     savedBy?: SavedPostListRelationFilter
     likedBy?: LikedPostListRelationFilter
@@ -5980,6 +5995,7 @@ export namespace Prisma {
     likeCount?: SortOrder
     savedCount?: SortOrder
     createdAt?: SortOrder
+    updatedAt?: SortOrder
     author?: UserOrderByWithRelationInput
     savedBy?: SavedPostOrderByRelationAggregateInput
     likedBy?: LikedPostOrderByRelationAggregateInput
@@ -5997,6 +6013,7 @@ export namespace Prisma {
     likeCount?: IntFilter<"Post"> | number
     savedCount?: IntFilter<"Post"> | number
     createdAt?: DateTimeFilter<"Post"> | Date | string
+    updatedAt?: DateTimeFilter<"Post"> | Date | string
     author?: XOR<UserScalarRelationFilter, UserWhereInput>
     savedBy?: SavedPostListRelationFilter
     likedBy?: LikedPostListRelationFilter
@@ -6011,6 +6028,7 @@ export namespace Prisma {
     likeCount?: SortOrder
     savedCount?: SortOrder
     createdAt?: SortOrder
+    updatedAt?: SortOrder
     _count?: PostCountOrderByAggregateInput
     _avg?: PostAvgOrderByAggregateInput
     _max?: PostMaxOrderByAggregateInput
@@ -6030,6 +6048,7 @@ export namespace Prisma {
     likeCount?: IntWithAggregatesFilter<"Post"> | number
     savedCount?: IntWithAggregatesFilter<"Post"> | number
     createdAt?: DateTimeWithAggregatesFilter<"Post"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"Post"> | Date | string
   }
 
   export type SavedPostWhereInput = {
@@ -6206,6 +6225,7 @@ export namespace Prisma {
     likeCount?: number
     savedCount?: number
     createdAt?: Date | string
+    updatedAt?: Date | string
     author: UserCreateNestedOneWithoutPostsInput
     savedBy?: SavedPostCreateNestedManyWithoutPostInput
     likedBy?: LikedPostCreateNestedManyWithoutPostInput
@@ -6220,6 +6240,7 @@ export namespace Prisma {
     likeCount?: number
     savedCount?: number
     createdAt?: Date | string
+    updatedAt?: Date | string
     savedBy?: SavedPostUncheckedCreateNestedManyWithoutPostInput
     likedBy?: LikedPostUncheckedCreateNestedManyWithoutPostInput
   }
@@ -6231,6 +6252,7 @@ export namespace Prisma {
     likeCount?: IntFieldUpdateOperationsInput | number
     savedCount?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     author?: UserUpdateOneRequiredWithoutPostsNestedInput
     savedBy?: SavedPostUpdateManyWithoutPostNestedInput
     likedBy?: LikedPostUpdateManyWithoutPostNestedInput
@@ -6245,6 +6267,7 @@ export namespace Prisma {
     likeCount?: IntFieldUpdateOperationsInput | number
     savedCount?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     savedBy?: SavedPostUncheckedUpdateManyWithoutPostNestedInput
     likedBy?: LikedPostUncheckedUpdateManyWithoutPostNestedInput
   }
@@ -6258,6 +6281,7 @@ export namespace Prisma {
     likeCount?: number
     savedCount?: number
     createdAt?: Date | string
+    updatedAt?: Date | string
   }
 
   export type PostUpdateManyMutationInput = {
@@ -6267,6 +6291,7 @@ export namespace Prisma {
     likeCount?: IntFieldUpdateOperationsInput | number
     savedCount?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type PostUncheckedUpdateManyInput = {
@@ -6278,6 +6303,7 @@ export namespace Prisma {
     likeCount?: IntFieldUpdateOperationsInput | number
     savedCount?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type SavedPostCreateInput = {
@@ -6512,6 +6538,7 @@ export namespace Prisma {
     likeCount?: SortOrder
     savedCount?: SortOrder
     createdAt?: SortOrder
+    updatedAt?: SortOrder
   }
 
   export type PostAvgOrderByAggregateInput = {
@@ -6530,6 +6557,7 @@ export namespace Prisma {
     likeCount?: SortOrder
     savedCount?: SortOrder
     createdAt?: SortOrder
+    updatedAt?: SortOrder
   }
 
   export type PostMinOrderByAggregateInput = {
@@ -6541,6 +6569,7 @@ export namespace Prisma {
     likeCount?: SortOrder
     savedCount?: SortOrder
     createdAt?: SortOrder
+    updatedAt?: SortOrder
   }
 
   export type PostSumOrderByAggregateInput = {
@@ -7057,6 +7086,7 @@ export namespace Prisma {
     likeCount?: number
     savedCount?: number
     createdAt?: Date | string
+    updatedAt?: Date | string
     savedBy?: SavedPostCreateNestedManyWithoutPostInput
     likedBy?: LikedPostCreateNestedManyWithoutPostInput
   }
@@ -7069,6 +7099,7 @@ export namespace Prisma {
     likeCount?: number
     savedCount?: number
     createdAt?: Date | string
+    updatedAt?: Date | string
     savedBy?: SavedPostUncheckedCreateNestedManyWithoutPostInput
     likedBy?: LikedPostUncheckedCreateNestedManyWithoutPostInput
   }
@@ -7151,6 +7182,7 @@ export namespace Prisma {
     likeCount?: IntFilter<"Post"> | number
     savedCount?: IntFilter<"Post"> | number
     createdAt?: DateTimeFilter<"Post"> | Date | string
+    updatedAt?: DateTimeFilter<"Post"> | Date | string
   }
 
   export type SavedPostUpsertWithWhereUniqueWithoutUserInput = {
@@ -7360,6 +7392,7 @@ export namespace Prisma {
     likeCount?: number
     savedCount?: number
     createdAt?: Date | string
+    updatedAt?: Date | string
     author: UserCreateNestedOneWithoutPostsInput
     likedBy?: LikedPostCreateNestedManyWithoutPostInput
   }
@@ -7373,6 +7406,7 @@ export namespace Prisma {
     likeCount?: number
     savedCount?: number
     createdAt?: Date | string
+    updatedAt?: Date | string
     likedBy?: LikedPostUncheckedCreateNestedManyWithoutPostInput
   }
 
@@ -7429,6 +7463,7 @@ export namespace Prisma {
     likeCount?: IntFieldUpdateOperationsInput | number
     savedCount?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     author?: UserUpdateOneRequiredWithoutPostsNestedInput
     likedBy?: LikedPostUpdateManyWithoutPostNestedInput
   }
@@ -7442,6 +7477,7 @@ export namespace Prisma {
     likeCount?: IntFieldUpdateOperationsInput | number
     savedCount?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     likedBy?: LikedPostUncheckedUpdateManyWithoutPostNestedInput
   }
 
@@ -7476,6 +7512,7 @@ export namespace Prisma {
     likeCount?: number
     savedCount?: number
     createdAt?: Date | string
+    updatedAt?: Date | string
     author: UserCreateNestedOneWithoutPostsInput
     savedBy?: SavedPostCreateNestedManyWithoutPostInput
   }
@@ -7489,6 +7526,7 @@ export namespace Prisma {
     likeCount?: number
     savedCount?: number
     createdAt?: Date | string
+    updatedAt?: Date | string
     savedBy?: SavedPostUncheckedCreateNestedManyWithoutPostInput
   }
 
@@ -7545,6 +7583,7 @@ export namespace Prisma {
     likeCount?: IntFieldUpdateOperationsInput | number
     savedCount?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     author?: UserUpdateOneRequiredWithoutPostsNestedInput
     savedBy?: SavedPostUpdateManyWithoutPostNestedInput
   }
@@ -7558,6 +7597,7 @@ export namespace Prisma {
     likeCount?: IntFieldUpdateOperationsInput | number
     savedCount?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     savedBy?: SavedPostUncheckedUpdateManyWithoutPostNestedInput
   }
 
@@ -7569,6 +7609,7 @@ export namespace Prisma {
     likeCount?: number
     savedCount?: number
     createdAt?: Date | string
+    updatedAt?: Date | string
   }
 
   export type SavedPostCreateManyUserInput = {
@@ -7588,6 +7629,7 @@ export namespace Prisma {
     likeCount?: IntFieldUpdateOperationsInput | number
     savedCount?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     savedBy?: SavedPostUpdateManyWithoutPostNestedInput
     likedBy?: LikedPostUpdateManyWithoutPostNestedInput
   }
@@ -7600,6 +7642,7 @@ export namespace Prisma {
     likeCount?: IntFieldUpdateOperationsInput | number
     savedCount?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     savedBy?: SavedPostUncheckedUpdateManyWithoutPostNestedInput
     likedBy?: LikedPostUncheckedUpdateManyWithoutPostNestedInput
   }
@@ -7612,6 +7655,7 @@ export namespace Prisma {
     likeCount?: IntFieldUpdateOperationsInput | number
     savedCount?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type SavedPostUpdateWithoutUserInput = {

@@ -7,7 +7,7 @@ interface FeedbackMessageProps {
 }
 
 const FeedbackMessage = ({ type, message, onClose }: FeedbackMessageProps) => {
-  const baseStyles = "px-5 py-3 shadow text-lg absolute top-20 md:right-40 right-10 capitalize";
+  const baseStyles = "px-5 py-3 shadow text-lg absolute top-20 lg:right-40 md:right-25 right-10 capitalize";
   const styles = {
     success: "bg-green-100 text-green-700",
     error: "bg-red-100 text-red-700",

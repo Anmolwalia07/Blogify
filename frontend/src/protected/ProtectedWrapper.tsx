@@ -20,7 +20,6 @@ function ProtectedWrapper({ children }: Dashboard) {
       navigate("/login");
       return;
     }
-
     axios
       .get(`${API_url}/user/profile`, {
         headers: {
@@ -29,8 +28,7 @@ function ProtectedWrapper({ children }: Dashboard) {
       })
       .then((res) => {
         if (res.data?.user) {
-          context?.setUser(res.data.user); // Optional chaining
-          setLoading(false);
+          context?.setUser(res.data.user);
         } else {
           navigate("/login");
           localStorage.removeItem("token")
@@ -41,6 +39,33 @@ function ProtectedWrapper({ children }: Dashboard) {
         localStorage.removeItem("token")
         navigate("/login");
       });
+
+      axios.get(`${API_url}/blog/bulk`,{
+        headers:{
+          Authorization:`Bearer ${token}`
+        }
+      }).then((res)=>{
+        if(res.data){
+          console.log(res.data.posts)
+          context?.setBlog(res.data.posts);
+        }
+      }).catch(e=>{
+        console.log(e);
+        setLoading(false);
+      })
+      axios.get(`${API_url}/blog/drafted/count`,{
+        headers:{
+            Authorization:`Bearer ${token}`
+        }
+      }).then((res)=>{
+        if(res.data){
+            context?.setDraftedCount(res.data.totalPost);
+            setLoading(false)
+        }
+      }).catch(e=>{
+        setLoading(false)
+        console.log(e);
+      })
   }, [token]);
 
   // 🛑 Show nothing or a loader while verifying

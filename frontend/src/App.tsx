@@ -7,21 +7,65 @@ import Blogs from "./component/Blogs"
 import FollowingBlogs from "./component/FollowingBlogs"
 import Post from "./pages/Post"
 import ScrollToTop  from "./component/ScrollToTop"
-function App() {
+import DrafedBlogs from "./pages/DrafedBlogs"
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
 
+export  type item={
+  id :number,     
+  title  : String,
+  content  :String,
+  published  :Boolean,        
+  authorId   :number,
+  likeCount  :number,            
+  savedCount :number,            
+  createdAt  :string,     
+  updatedAt  :string,
+  author:Author,
+  savedBy:SavedBy[]    
+  }
+
+  type SavedBy={
+    postId:number,
+    userId:number
+  }
+
+  type Author={
+    id:number,
+    name:string,
+    email:string,
+    bio:string,
+    likedPosts:LikedPosts[],
+    savedPosts:SavedPosts[]
+  }
+
+  type LikedPosts={
+    userId:number,
+    postId:number
+  }
+  type SavedPosts={
+    userId:number,
+    postId:number,
+  }
+
+function App() {
+  const queryClient=new QueryClient();
   return (
+    <QueryClientProvider client={queryClient}>
     <BrowserRouter>
-    <ScrollToTop/>
     <Routes>
       <Route path="/signup" element={<Signup/>}/>
       <Route path="/login" element={<Login/>}/>
       <Route path="/" element={<ProtectedWrapper><Home/></ProtectedWrapper>}>
-        <Route path="/" element={<Blogs/>}/>
+        <Route path="/" element={<ProtectedWrapper><Blogs/></ProtectedWrapper>}/>
         <Route path="/following" element={<FollowingBlogs/>}/>
       </Route>
-      <Route path="/post" element={<ProtectedWrapper><Post/></ProtectedWrapper>}/>
+      
+        <Route path="/post" element={<ProtectedWrapper> <ScrollToTop/><Post/></ProtectedWrapper>}/>
+        <Route path="/blog/drafted" element={<ProtectedWrapper> <ScrollToTop/><DrafedBlogs/></ProtectedWrapper>}/>
+      
     </Routes>
     </BrowserRouter>
+    </QueryClientProvider>
   )
 }
 

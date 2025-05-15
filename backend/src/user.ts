@@ -110,14 +110,61 @@ userRouter.use("/user/*",async(c,next)=>{
   if(!decode){
     return c.json({message:"Unauthorised"})
   }
-  //@ts-ignore
-  if(decode?.exp<=(Math.floor(Date.now() / 1000) + 60 * 1)){
-    return c.json({message:"Token expire"})
-  }
+
   c.set('userId',String(decode.id))
   await next();
   }catch(e){
     return c.json({message:"unauthorised"})
+  }
+})
+
+userRouter.put("/user/saveblog", async (c) => {
+  const prisma = new PrismaClient({
+    datasourceUrl: c.env?.DATABASE_URL,
+  }).$extends(withAccelerate());
+
+  const id = Number(c.get("userId")); // Ensure "userId" is set in the context
+  const body = await c.req.json(); // Should contain postId
+
+  try {
+    const response = await prisma.savedPost.create({
+      data: {
+        userId: id,
+        postId: body.postId,
+      },
+    });
+
+    console.log(response);
+     c.status(201)
+     return c.json({ message: "Saved" });
+  } catch (e) {
+    console.error("Save failed:", e);
+     c.status(400)
+     return c.json({ message: "Error saving post", error: e });
+  }
+});
+
+
+userRouter.delete("/user/unsaveblog/:postId",async(c)=>{
+  const prisma = new PrismaClient({
+		datasourceUrl: c.env?.DATABASE_URL	,
+	}).$extends(withAccelerate());
+  const id=Number(c.get("userId"));
+  const postId=Number(c.req.param("postId"))
+  try{
+    const response=await prisma.savedPost.delete({
+      where:{
+        userId_postId:{
+          userId:id,
+          postId:postId,
+        }
+      }
+    })
+    c.status(201)
+    return c.json({message:"UnSaved"})
+  }catch(e){
+    c.status(401)
+    return c.json({message:"Internal Error"})
   }
 })
 

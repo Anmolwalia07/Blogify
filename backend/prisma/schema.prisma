@@ -23,6 +23,8 @@ model User {
   posts       Post[]         @relation("UserPosts")
   savedPosts  SavedPost[]
   likedPosts  LikedPost[]
+  friends     Friends[]
+
 }
 
 model Post {
@@ -35,8 +37,16 @@ model Post {
   likeCount   Int            @default(0)
   savedCount  Int            @default(0)
   createdAt   DateTime       @default(now())
+  updatedAt   DateTime      @default(now())
   savedBy     SavedPost[]   
   likedBy     LikedPost[]
+}
+
+model Friends{
+  friend      User     @relation(fields: [friendId], references: [id])
+  friendId    Int 
+  savedAt   DateTime @default(now())
+  @@id([savedAt,friendId])
 }
 
 model SavedPost {

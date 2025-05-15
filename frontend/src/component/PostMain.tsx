@@ -1,9 +1,10 @@
-import { useContext, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { UserContext } from "../context/UserContext";
 import axios from "axios";
 import { API_url } from "../url";
 import Loader from "./Loader";
 import FeedbackMessage from "./FeedbackMessage";
+import { useNavigate } from "react-router";
 
 function PostMain() {
     const context=useContext(UserContext)
@@ -11,6 +12,10 @@ function PostMain() {
     const [loading, setLoading] = useState(false);
     const [feedback, setFeedback] = useState<{type: 'success' | 'error', message: string} | null>(null);
     const textareaRef = useRef<HTMLTextAreaElement | null>(null);
+    const [draftedPostCount, setDraftedPostCount] = useState<number|undefined>(context?.draftedCount)
+    const [changeInDraftCount,setChangeInDraftCount]=useState(true)
+    
+    const navigation=useNavigate()
 
     const handleInput = () => {
       const textarea = textareaRef.current;
@@ -20,10 +25,6 @@ function PostMain() {
       }
     };
 
-    const savedHandle=()=>{
-        //@ts-ignore
-        context?.setPost(post)
-    }
 
     const handlePublish=async()=>{
         const token=localStorage.getItem("token")
@@ -48,6 +49,54 @@ function PostMain() {
         }
     }
 
+    const savedHandle =async()=>{
+        const token=localStorage.getItem("token")
+        try{
+            setLoading(true);
+            const response=await axios.post(`${API_url}/blog/create`,{...post},{
+                headers:{
+                    Authorization:`Bearer ${token}`
+                }
+            })
+            if(response.data){
+                context?.setPost({title:'',content:''})
+                setPost({title:'',content:'',publish:false});
+                setLoading(false);
+                console.log(response.data);
+                setFeedback({type:"success",message:response.data.message});
+                setChangeInDraftCount(true);
+            }
+        }catch(e){
+            setLoading(false);
+            //@ts-ignore
+            setFeedback({type:"error",message:e?.response?.data.message});
+        }
+    }
+
+    function draftedCount(){
+        const token=localStorage.getItem("token")
+        setLoading(true)
+        axios.get(`${API_url}/blog/drafted/count`,{
+            headers:{
+                Authorization:`Bearer ${token}`
+            }
+        }).then((res)=>{
+            if(res.data){
+                setDraftedPostCount(res.data.totalPost);
+                setLoading(false)
+            }
+        }).catch(e=>{
+            setLoading(false)
+            console.log(e);
+        })
+    }
+
+    useEffect(()=>{
+        if(changeInDraftCount){
+            draftedCount()
+        }
+    },[changeInDraftCount])
+
   return (
     <div className="mt-15 w-full h-screen flex flex-col items-center">
         {loading && <Loader/>}
@@ -56,7 +105,12 @@ function PostMain() {
         <div className="flex justify-between w-[75%] h-fit mt-8  ">
             <div className="w-full lg:w-fit flex gap-8 justify-between
             ">
-                <button className="text-lg underline p-1 hover:cursor-pointer">Drafted</button>
+                <button 
+                onClick={()=>{
+                    navigation("/blog/drafted")
+                }}
+                //@ts-ignore
+                className="text-lg underline p-1 hover:cursor-pointer relative">Drafted{draftedPostCount >=1 &&<span className="w-4 h-4 flex justify-center items-center rounded-full text-white bg-black absolute top-1 right-[-7px]">{ draftedPostCount}</span>}</button>
                 <button 
                 onClick={savedHandle}
                 className="text-lg border p-1 px-2 rounded-lg hover:cursor-pointer hover:bg-gray-200">Saved</button>
@@ -70,19 +124,21 @@ function PostMain() {
 
         <div className="w-[80%] bg-[#cfcfcf] lg:mt-15 mt-8 flex flex-col px-5 py-4 h-auto"> 
             <input 
-            value={post.title}
+            value={context?.post.title}
             onChange={(e)=>{
                 setPost({...post,title:e.target.value})
+                context?.setPost({...context.post,title:e.target.value})
             }}
-            type="text" placeholder="title" className="md:text-5xl text-3xl border-b outline-0"/>
+            type="text" placeholder="title" className="md:text-4xl text-3xl border-b outline-0 p-2"/>
             <textarea
                 onChange={(e)=>{
                     setPost({...post,content:e.target.value})
+                    context?.setPost({...context.post,content:e.target.value})
                 }}
-                value={post.content}
+                value={context?.post.content}
                 ref={textareaRef}
                 onInput={handleInput}
-                className="md:text-3xl text-2xl mt-2 outline-0 border-b w-full resize-none overflow-hidden py-3 min-h-30 md:min-h-40"
+                className="md:text-3xl text-2xl mt-2 outline-0 border-b w-full resize-none overflow-hidden py-3 min-h-30 md:min-h-40 p-2"
                 placeholder="your story"
                 rows={1}
                 ></textarea>        

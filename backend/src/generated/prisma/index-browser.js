@@ -136,7 +136,8 @@ exports.Prisma.PostScalarFieldEnum = {
   authorId: 'authorId',
   likeCount: 'likeCount',
   savedCount: 'savedCount',
-  createdAt: 'createdAt'
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
 };
 
 exports.Prisma.SavedPostScalarFieldEnum = {

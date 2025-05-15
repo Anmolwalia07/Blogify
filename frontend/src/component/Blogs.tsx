@@ -17,7 +17,6 @@ function Blogs() {
   //@ts-ignore
   const [likeCount, setLikeCount] = useState(20);
   const [isLiked,setIsLiked]=useState(false);
-  const [isSaved, setIsSaved] = useState(false);
   //@ts-ignore
   const [blog,setBlog]=useState([...context?.blog]);
   const [skip, setSkip] = useState(4);

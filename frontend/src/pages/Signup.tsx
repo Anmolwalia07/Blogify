@@ -45,8 +45,8 @@ function Signup() {
     <Logo/>
     {loading && <Loader/>}
     {feedback?.message && <FeedbackMessage type={feedback.type} message={feedback.message} onClose={()=>{setFeedback(null)}}/>}
-    <div className="w-full h-screen flex justify-center items-center ">
-        <div className="lg:w-[72rem] md:h-[45%] xl:h-2/3  w-full h-2/3 flex shadow border">
+    <div className="w-full h-screen flex justify-center items-center px-5 md:px-8 py-10 lg:py-0 lg:px-0">
+        <div className="lg:w-[72rem] md:h-[45%] xl:h-2/3  w-full h-2/3 flex shadow  border">
         <div className="md:w-1/2 h-full flex flex-col items-center w-full justify-center bg-[#ffffff]">
         <h1 className="text-3xl font-bold ">Create an account</h1>
         <h1>Already have an account ? <Link to={`/login`} className="text-blue-700 underline">login</Link></h1>

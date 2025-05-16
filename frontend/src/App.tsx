@@ -10,6 +10,9 @@ import ScrollToTop  from "./component/ScrollToTop"
 import DrafedBlogs from "./pages/DrafedBlogs"
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
 import Profile from "./pages/Profile"
+import MyPosts from "./component/MyPosts"
+import MyLikedPosts from "./component/MyLikedPosts"
+import MySavedPosts from "./component/MySavedPosts"
 
 export  type item={
   id :number,     
@@ -54,6 +57,16 @@ export  type item={
     postId:number,
   }
 
+  export const colorMap: Record<string, string> = {
+  blue: 'bg-blue-600',
+  yellow: 'bg-yellow-600',
+  red: 'bg-red-600',
+  green: 'bg-green-600',
+  amber: 'bg-amber-600',
+  orange:'bg-orange-600',
+  pink  : 'bg-pink-600'
+  // add more as needed
+};
 function App() {
   const queryClient=new QueryClient();
   return (
@@ -70,7 +83,11 @@ function App() {
         <Route path="/post" element={<ProtectedWrapper> <ScrollToTop/><Post/></ProtectedWrapper>}/>
         <Route path="/blog/drafted" element={<ProtectedWrapper> <ScrollToTop/><DrafedBlogs/></ProtectedWrapper>}/>
 
-        <Route path="/profile" element={<ProtectedWrapper><Profile/></ProtectedWrapper>}/>
+      <Route path="/profile" element={<ProtectedWrapper><Profile /></ProtectedWrapper>}>
+        <Route index path="/profile" element={<MyPosts />} />
+        <Route path="liked" element={<MyLikedPosts />} />
+        <Route path="saved" element={<MySavedPosts />} />
+      </Route>
     </Routes>
     </BrowserRouter>
     </QueryClientProvider>

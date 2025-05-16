@@ -3,7 +3,7 @@ import { UserContext } from "../context/UserContext";
 import { API_url } from "../url";
 import axios from "axios";
 import { useInView } from 'react-intersection-observer';
-import type { item } from "../App";
+import { colorMap, type item } from "../App";
 import LikeComponent from "./LikeComponent";
 import SavedBlog from "./SavedBlog";
 
@@ -17,6 +17,8 @@ function Blogs() {
   const [skip, setSkip] = useState(4);
   const [hasMore, setHasMore] = useState(true);
   const { ref, inView } = useInView();
+
+ 
 
   const fetchPosts = async () => {
     const token=localStorage.getItem("token")
@@ -50,8 +52,9 @@ function Blogs() {
         return(
         <div className="border-b mt-2" key={item.id}>
         <div className="flex items-end gap-1 mb-1 w-full">
-        <div className={`w-7 h-7 rounded-full bg-${item.author.picture || "blue" }-600  flex justify-center text-white items-center pb-0.5`}>{item.author?.name.charAt(0)}</div>
-        <h1 className="text-md font-semibold md:text-lg md:ml-1">{item.author?.name}</h1>
+        <div className={`w-7 h-7 rounded-full ${colorMap[item.author.picture]} flex justify-center text-white items-center pb-0.5`}>{item.author?.name.charAt(0)}</div>
+        <h1 className="text-md font-semibold md:text-lg md:ml-1" 
+        >{item.author?.name}</h1>
         <h2 className="flex text-xs pb-1 ml-2 sm:text-sm  ">{item.updatedAt?.split("T")[0]}</h2>
         </div>
         <h1 className="font-semibold text-xl md:text-2xl overflow-hidden mt-1 pl-1">{item.title}</h1>

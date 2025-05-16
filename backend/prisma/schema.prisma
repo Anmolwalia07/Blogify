@@ -19,6 +19,7 @@ model User {
   email       String         @unique
   name        String         
   password    String
+  picture     String         @default("blue")
   bio         String         @default("")
   posts       Post[]         @relation("UserPosts")
   savedPosts  SavedPost[]

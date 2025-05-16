@@ -40,7 +40,6 @@ function SavedBlog({ item }: { item: item }) {
       }
 
       useEffect(()=>{
-        console.log("use effect")
         const token=localStorage.getItem("token")
         axios.get(`${API_url}/blog/${item.id}`,{
             headers:{
@@ -60,10 +59,8 @@ function SavedBlog({ item }: { item: item }) {
             key={item.id}
               onClick={() => {
                 if(item?.savedBy?.some(x => x.postId === item.id && x.userId===context?.user.id) || havePostId===item.id){
-                console.log("unsaved");
                 unSaveblog(item.id);
                 }else{
-                console.log("Saved")
                 saveBlog(item.id);
                 }
                 }}

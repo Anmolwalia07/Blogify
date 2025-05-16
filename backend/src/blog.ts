@@ -92,7 +92,8 @@ blogRouter.get('/bulk', async (c) => {
             author:{
                 select:{
                     name:true,
-                    id:true
+                    id:true,
+                    picture:true
                 }
             },
             savedBy:{
@@ -257,6 +258,33 @@ blogRouter.put('/update', async (c) => {
         return c.json({error:"error"})
     }
 });
+
+
+blogRouter.put("/drafted-to-publish",async(c)=>{
+    const userId = c.get('userId');
+	const prisma = new PrismaClient({
+		datasourceUrl: c.env?.DATABASE_URL	,
+	}).$extends(withAccelerate());
+
+    const body=await c.req.json();
+
+    try{
+        await prisma.post.update({
+            where: {
+                id: body.id,
+                authorId: Number(userId)
+            },
+            data: {
+                published:true,
+            }
+        });
+        c.status(201);
+        return c.json({message:'Publish Successfully'});
+    }catch(e){
+        c.status(400)
+        return c.json({error:"Internal error"})
+    }
+})
 
 blogRouter.delete('/delete/:id',async(c)=>{
     const userId = c.get('userId');

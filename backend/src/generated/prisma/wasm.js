@@ -125,6 +125,7 @@ exports.Prisma.UserScalarFieldEnum = {
   email: 'email',
   name: 'name',
   password: 'password',
+  picture: 'picture',
   bio: 'bio'
 };
 
@@ -138,6 +139,11 @@ exports.Prisma.PostScalarFieldEnum = {
   savedCount: 'savedCount',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
+};
+
+exports.Prisma.FriendsScalarFieldEnum = {
+  friendId: 'friendId',
+  savedAt: 'savedAt'
 };
 
 exports.Prisma.SavedPostScalarFieldEnum = {
@@ -166,6 +172,7 @@ exports.Prisma.QueryMode = {
 exports.Prisma.ModelName = {
   User: 'User',
   Post: 'Post',
+  Friends: 'Friends',
   SavedPost: 'SavedPost',
   LikedPost: 'LikedPost'
 };

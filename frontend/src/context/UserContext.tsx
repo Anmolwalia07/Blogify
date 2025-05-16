@@ -1,11 +1,19 @@
 import React, { createContext, useState, type ReactNode } from 'react';
+import type { item, LikedPosts, SavedPosts } from '../App';
 
 // 1. User type
 interface User {
   id:number,
-  name: string;
-  email: string;
+  name:string,
+  email:string,
+  bio:string,
+  picture:string
+  likedPosts:LikedPosts[],
+  savedPosts:SavedPosts[],
+  posts:item[]
 }
+
+
 
 interface Post {
   title: string;
@@ -42,7 +50,7 @@ interface UserProviderProps {
 
 // 5. Provider component
 export default function UserProvider({ children }: UserProviderProps) {
-  const [user, setUser] = useState<User>({ name: '', email: '' ,id:0});
+  const [user, setUser] = useState<User>({ name: '', email: '' ,id:0,bio:'',picture:'',posts:[],likedPosts:[],savedPosts:[]});
   const [post, setPost] = useState<Post>({ title: '',content: ''})
   const [blog, setBlog]=useState<Blog>([]);
   const [draftedCount, setDraftedCount] = useState<DraftedCount>(0)

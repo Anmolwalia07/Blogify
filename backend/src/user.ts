@@ -221,6 +221,23 @@ userRouter.get("/user/profile",async (c)=>{
     const user=await prisma.user.findUnique({
       where:{
         id:id
+      },
+      include:{
+        savedPosts:{
+          select:{
+            postId:true,
+          }
+        },
+        likedPosts:{
+          select:{
+            postId:true
+          }
+        },
+        posts:{
+          select:{
+            id:true
+          }
+        }
       }
     })
 

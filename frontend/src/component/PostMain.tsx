@@ -13,7 +13,7 @@ function PostMain() {
     const [feedback, setFeedback] = useState<{type: 'success' | 'error', message: string} | null>(null);
     const textareaRef = useRef<HTMLTextAreaElement | null>(null);
     const [draftedPostCount, setDraftedPostCount] = useState<number|undefined>(context?.draftedCount)
-    const [changeInDraftCount,setChangeInDraftCount]=useState(true)
+    const [changeInDraftCount,setChangeInDraftCount]=useState(false)
     
     const navigation=useNavigate()
 
@@ -92,13 +92,11 @@ function PostMain() {
     }
 
     useEffect(()=>{
-        if(changeInDraftCount){
-            draftedCount()
-        }
+        draftedCount();
     },[changeInDraftCount])
 
   return (
-    <div className="mt-15 w-full h-screen flex flex-col items-center">
+    <div className="mt-15 w-full h-auto flex flex-col items-center mb-20">
         {loading && <Loader/>}
         {feedback?.message && <FeedbackMessage type={feedback.type} message={feedback.message} onClose={()=>setFeedback(null)}/>
         }

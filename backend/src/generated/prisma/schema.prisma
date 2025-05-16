@@ -19,10 +19,12 @@ model User {
   email      String      @unique
   name       String
   password   String
+  picture    String      @default("blue")
   bio        String      @default("")
   posts      Post[]      @relation("UserPosts")
   savedPosts SavedPost[]
   likedPosts LikedPost[]
+  friends    Friends[]
 }
 
 model Post {
@@ -38,6 +40,14 @@ model Post {
   updatedAt  DateTime    @default(now())
   savedBy    SavedPost[]
   likedBy    LikedPost[]
+}
+
+model Friends {
+  friend   User     @relation(fields: [friendId], references: [id])
+  friendId Int
+  savedAt  DateTime @default(now())
+
+  @@id([savedAt, friendId])
 }
 
 model SavedPost {

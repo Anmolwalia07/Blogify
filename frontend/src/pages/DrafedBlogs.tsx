@@ -20,9 +20,8 @@ function DrafedBlogs() {
   const [feedback,setFeedback]=useState<{type:"success" | "error",message :string} | null>(null)
   const [isModalOpen, setModalOpen] = useState(false);
   const [id,setId]=useState(0);
- 
+  const token=localStorage.getItem("token")
   useEffect(()=>{
-    const token=localStorage.getItem("token")
     setLoading(true)
     axios.get(`${API_url}/blog/drafted`,{
       headers:{
@@ -53,14 +52,32 @@ function DrafedBlogs() {
       if(response.data){
         setLoading(false);
         setFeedback({type:"success",message:response?.data.message});
-        setId(0)
+        setId(1)
       }
     }catch(e){
       setLoading(false)
-      setId(0)
+      setId(1)
       //@ts-ignore
       setFeedback({type:"error",message:e.response.data.message})
     }
+  }
+
+  const publishDraftedPost=(postId:number)=>{
+    setLoading(true)
+    axios.put(`${API_url}/blog/drafted-to-publish`,{id:postId},{
+      headers:{
+        Authorization:`Bearer ${token}`
+      }
+    }).then((res)=>{
+      setLoading(false)
+      setFeedback({type:"success",message:res?.data.message});
+      setId(-1)
+    }).catch((e)=>{
+      setLoading(false)
+      //@ts-ignore
+      setFeedback({type:"error",message:e.response.data.message})
+      setId(-1)
+    })
   }
 
   return (
@@ -90,7 +107,11 @@ function DrafedBlogs() {
             <h1 className="font-semibold text-xl md:text-2xl lg:text-3xl capitalize">{item.title}</h1>
             <p className="md:text-xl text-lg lg:text-xl">{item.content}</p>
             <div className="w-full flex items-center justify-between pr-2 mt-2 lg:pr-3 mb-1 ">
-              <button className="outline-none bg-green-400 px-2 rounded-lg text-white hover:cursor-pointer ">Publish</button>
+              <button className="outline-none bg-green-400 px-2 rounded-lg text-white hover:cursor-pointer"
+              onClick={()=>{
+                publishDraftedPost(item.id);
+              }}
+              >Publish</button>
               <div className="flex gap-3 items-center">
               <MdDeleteOutline 
               onClick={()=>{

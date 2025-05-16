@@ -28,6 +28,7 @@ function ProtectedWrapper({ children }: Dashboard) {
       })
       .then((res) => {
         if (res.data?.user) {
+          console.log(res.data.user)
           context?.setUser(res.data.user);
         } else {
           navigate("/login");
@@ -46,7 +47,6 @@ function ProtectedWrapper({ children }: Dashboard) {
         }
       }).then((res)=>{
         if(res.data){
-          console.log(res.data.posts)
           context?.setBlog(res.data.posts);
         }
       }).catch(e=>{

@@ -24,6 +24,11 @@ export type User = $Result.DefaultSelection<Prisma.$UserPayload>
  */
 export type Post = $Result.DefaultSelection<Prisma.$PostPayload>
 /**
+ * Model Friends
+ * 
+ */
+export type Friends = $Result.DefaultSelection<Prisma.$FriendsPayload>
+/**
  * Model SavedPost
  * 
  */
@@ -178,6 +183,16 @@ export class PrismaClient<
     * ```
     */
   get post(): Prisma.PostDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.friends`: Exposes CRUD operations for the **Friends** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Friends
+    * const friends = await prisma.friends.findMany()
+    * ```
+    */
+  get friends(): Prisma.FriendsDelegate<ExtArgs, ClientOptions>;
 
   /**
    * `prisma.savedPost`: Exposes CRUD operations for the **SavedPost** model.
@@ -640,6 +655,7 @@ export namespace Prisma {
   export const ModelName: {
     User: 'User',
     Post: 'Post',
+    Friends: 'Friends',
     SavedPost: 'SavedPost',
     LikedPost: 'LikedPost'
   };
@@ -660,7 +676,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "post" | "savedPost" | "likedPost"
+      modelProps: "user" | "post" | "friends" | "savedPost" | "likedPost"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -809,6 +825,80 @@ export namespace Prisma {
           count: {
             args: Prisma.PostCountArgs<ExtArgs>
             result: $Utils.Optional<PostCountAggregateOutputType> | number
+          }
+        }
+      }
+      Friends: {
+        payload: Prisma.$FriendsPayload<ExtArgs>
+        fields: Prisma.FriendsFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.FriendsFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FriendsPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.FriendsFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FriendsPayload>
+          }
+          findFirst: {
+            args: Prisma.FriendsFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FriendsPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.FriendsFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FriendsPayload>
+          }
+          findMany: {
+            args: Prisma.FriendsFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FriendsPayload>[]
+          }
+          create: {
+            args: Prisma.FriendsCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FriendsPayload>
+          }
+          createMany: {
+            args: Prisma.FriendsCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.FriendsCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FriendsPayload>[]
+          }
+          delete: {
+            args: Prisma.FriendsDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FriendsPayload>
+          }
+          update: {
+            args: Prisma.FriendsUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FriendsPayload>
+          }
+          deleteMany: {
+            args: Prisma.FriendsDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.FriendsUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.FriendsUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FriendsPayload>[]
+          }
+          upsert: {
+            args: Prisma.FriendsUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FriendsPayload>
+          }
+          aggregate: {
+            args: Prisma.FriendsAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateFriends>
+          }
+          groupBy: {
+            args: Prisma.FriendsGroupByArgs<ExtArgs>
+            result: $Utils.Optional<FriendsGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.FriendsCountArgs<ExtArgs>
+            result: $Utils.Optional<FriendsCountAggregateOutputType> | number
           }
         }
       }
@@ -1046,6 +1136,7 @@ export namespace Prisma {
   export type GlobalOmitConfig = {
     user?: UserOmit
     post?: PostOmit
+    friends?: FriendsOmit
     savedPost?: SavedPostOmit
     likedPost?: LikedPostOmit
   }
@@ -1145,12 +1236,14 @@ export namespace Prisma {
     posts: number
     savedPosts: number
     likedPosts: number
+    friends: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     posts?: boolean | UserCountOutputTypeCountPostsArgs
     savedPosts?: boolean | UserCountOutputTypeCountSavedPostsArgs
     likedPosts?: boolean | UserCountOutputTypeCountLikedPostsArgs
+    friends?: boolean | UserCountOutputTypeCountFriendsArgs
   }
 
   // Custom InputTypes
@@ -1183,6 +1276,13 @@ export namespace Prisma {
    */
   export type UserCountOutputTypeCountLikedPostsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: LikedPostWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountFriendsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: FriendsWhereInput
   }
 
 
@@ -1255,6 +1355,7 @@ export namespace Prisma {
     email: string | null
     name: string | null
     password: string | null
+    picture: string | null
     bio: string | null
   }
 
@@ -1263,6 +1364,7 @@ export namespace Prisma {
     email: string | null
     name: string | null
     password: string | null
+    picture: string | null
     bio: string | null
   }
 
@@ -1271,6 +1373,7 @@ export namespace Prisma {
     email: number
     name: number
     password: number
+    picture: number
     bio: number
     _all: number
   }
@@ -1289,6 +1392,7 @@ export namespace Prisma {
     email?: true
     name?: true
     password?: true
+    picture?: true
     bio?: true
   }
 
@@ -1297,6 +1401,7 @@ export namespace Prisma {
     email?: true
     name?: true
     password?: true
+    picture?: true
     bio?: true
   }
 
@@ -1305,6 +1410,7 @@ export namespace Prisma {
     email?: true
     name?: true
     password?: true
+    picture?: true
     bio?: true
     _all?: true
   }
@@ -1400,6 +1506,7 @@ export namespace Prisma {
     email: string
     name: string
     password: string
+    picture: string
     bio: string
     _count: UserCountAggregateOutputType | null
     _avg: UserAvgAggregateOutputType | null
@@ -1427,10 +1534,12 @@ export namespace Prisma {
     email?: boolean
     name?: boolean
     password?: boolean
+    picture?: boolean
     bio?: boolean
     posts?: boolean | User$postsArgs<ExtArgs>
     savedPosts?: boolean | User$savedPostsArgs<ExtArgs>
     likedPosts?: boolean | User$likedPostsArgs<ExtArgs>
+    friends?: boolean | User$friendsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -1439,6 +1548,7 @@ export namespace Prisma {
     email?: boolean
     name?: boolean
     password?: boolean
+    picture?: boolean
     bio?: boolean
   }, ExtArgs["result"]["user"]>
 
@@ -1447,6 +1557,7 @@ export namespace Prisma {
     email?: boolean
     name?: boolean
     password?: boolean
+    picture?: boolean
     bio?: boolean
   }, ExtArgs["result"]["user"]>
 
@@ -1455,14 +1566,16 @@ export namespace Prisma {
     email?: boolean
     name?: boolean
     password?: boolean
+    picture?: boolean
     bio?: boolean
   }
 
-  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "email" | "name" | "password" | "bio", ExtArgs["result"]["user"]>
+  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "email" | "name" | "password" | "picture" | "bio", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     posts?: boolean | User$postsArgs<ExtArgs>
     savedPosts?: boolean | User$savedPostsArgs<ExtArgs>
     likedPosts?: boolean | User$likedPostsArgs<ExtArgs>
+    friends?: boolean | User$friendsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -1474,12 +1587,14 @@ export namespace Prisma {
       posts: Prisma.$PostPayload<ExtArgs>[]
       savedPosts: Prisma.$SavedPostPayload<ExtArgs>[]
       likedPosts: Prisma.$LikedPostPayload<ExtArgs>[]
+      friends: Prisma.$FriendsPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
       email: string
       name: string
       password: string
+      picture: string
       bio: string
     }, ExtArgs["result"]["user"]>
     composites: {}
@@ -1878,6 +1993,7 @@ export namespace Prisma {
     posts<T extends User$postsArgs<ExtArgs> = {}>(args?: Subset<T, User$postsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PostPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     savedPosts<T extends User$savedPostsArgs<ExtArgs> = {}>(args?: Subset<T, User$savedPostsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SavedPostPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     likedPosts<T extends User$likedPostsArgs<ExtArgs> = {}>(args?: Subset<T, User$likedPostsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LikedPostPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    friends<T extends User$friendsArgs<ExtArgs> = {}>(args?: Subset<T, User$friendsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FriendsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1911,6 +2027,7 @@ export namespace Prisma {
     readonly email: FieldRef<"User", 'String'>
     readonly name: FieldRef<"User", 'String'>
     readonly password: FieldRef<"User", 'String'>
+    readonly picture: FieldRef<"User", 'String'>
     readonly bio: FieldRef<"User", 'String'>
   }
     
@@ -2369,6 +2486,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: LikedPostScalarFieldEnum | LikedPostScalarFieldEnum[]
+  }
+
+  /**
+   * User.friends
+   */
+  export type User$friendsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Friends
+     */
+    select?: FriendsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Friends
+     */
+    omit?: FriendsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FriendsInclude<ExtArgs> | null
+    where?: FriendsWhereInput
+    orderBy?: FriendsOrderByWithRelationInput | FriendsOrderByWithRelationInput[]
+    cursor?: FriendsWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: FriendsScalarFieldEnum | FriendsScalarFieldEnum[]
   }
 
   /**
@@ -3601,6 +3742,1059 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: PostInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model Friends
+   */
+
+  export type AggregateFriends = {
+    _count: FriendsCountAggregateOutputType | null
+    _avg: FriendsAvgAggregateOutputType | null
+    _sum: FriendsSumAggregateOutputType | null
+    _min: FriendsMinAggregateOutputType | null
+    _max: FriendsMaxAggregateOutputType | null
+  }
+
+  export type FriendsAvgAggregateOutputType = {
+    friendId: number | null
+  }
+
+  export type FriendsSumAggregateOutputType = {
+    friendId: number | null
+  }
+
+  export type FriendsMinAggregateOutputType = {
+    friendId: number | null
+    savedAt: Date | null
+  }
+
+  export type FriendsMaxAggregateOutputType = {
+    friendId: number | null
+    savedAt: Date | null
+  }
+
+  export type FriendsCountAggregateOutputType = {
+    friendId: number
+    savedAt: number
+    _all: number
+  }
+
+
+  export type FriendsAvgAggregateInputType = {
+    friendId?: true
+  }
+
+  export type FriendsSumAggregateInputType = {
+    friendId?: true
+  }
+
+  export type FriendsMinAggregateInputType = {
+    friendId?: true
+    savedAt?: true
+  }
+
+  export type FriendsMaxAggregateInputType = {
+    friendId?: true
+    savedAt?: true
+  }
+
+  export type FriendsCountAggregateInputType = {
+    friendId?: true
+    savedAt?: true
+    _all?: true
+  }
+
+  export type FriendsAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Friends to aggregate.
+     */
+    where?: FriendsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Friends to fetch.
+     */
+    orderBy?: FriendsOrderByWithRelationInput | FriendsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: FriendsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Friends from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Friends.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Friends
+    **/
+    _count?: true | FriendsCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: FriendsAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: FriendsSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: FriendsMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: FriendsMaxAggregateInputType
+  }
+
+  export type GetFriendsAggregateType<T extends FriendsAggregateArgs> = {
+        [P in keyof T & keyof AggregateFriends]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateFriends[P]>
+      : GetScalarType<T[P], AggregateFriends[P]>
+  }
+
+
+
+
+  export type FriendsGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: FriendsWhereInput
+    orderBy?: FriendsOrderByWithAggregationInput | FriendsOrderByWithAggregationInput[]
+    by: FriendsScalarFieldEnum[] | FriendsScalarFieldEnum
+    having?: FriendsScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: FriendsCountAggregateInputType | true
+    _avg?: FriendsAvgAggregateInputType
+    _sum?: FriendsSumAggregateInputType
+    _min?: FriendsMinAggregateInputType
+    _max?: FriendsMaxAggregateInputType
+  }
+
+  export type FriendsGroupByOutputType = {
+    friendId: number
+    savedAt: Date
+    _count: FriendsCountAggregateOutputType | null
+    _avg: FriendsAvgAggregateOutputType | null
+    _sum: FriendsSumAggregateOutputType | null
+    _min: FriendsMinAggregateOutputType | null
+    _max: FriendsMaxAggregateOutputType | null
+  }
+
+  type GetFriendsGroupByPayload<T extends FriendsGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<FriendsGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof FriendsGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], FriendsGroupByOutputType[P]>
+            : GetScalarType<T[P], FriendsGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type FriendsSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    friendId?: boolean
+    savedAt?: boolean
+    friend?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["friends"]>
+
+  export type FriendsSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    friendId?: boolean
+    savedAt?: boolean
+    friend?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["friends"]>
+
+  export type FriendsSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    friendId?: boolean
+    savedAt?: boolean
+    friend?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["friends"]>
+
+  export type FriendsSelectScalar = {
+    friendId?: boolean
+    savedAt?: boolean
+  }
+
+  export type FriendsOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"friendId" | "savedAt", ExtArgs["result"]["friends"]>
+  export type FriendsInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    friend?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type FriendsIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    friend?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type FriendsIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    friend?: boolean | UserDefaultArgs<ExtArgs>
+  }
+
+  export type $FriendsPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Friends"
+    objects: {
+      friend: Prisma.$UserPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      friendId: number
+      savedAt: Date
+    }, ExtArgs["result"]["friends"]>
+    composites: {}
+  }
+
+  type FriendsGetPayload<S extends boolean | null | undefined | FriendsDefaultArgs> = $Result.GetResult<Prisma.$FriendsPayload, S>
+
+  type FriendsCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<FriendsFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: FriendsCountAggregateInputType | true
+    }
+
+  export interface FriendsDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Friends'], meta: { name: 'Friends' } }
+    /**
+     * Find zero or one Friends that matches the filter.
+     * @param {FriendsFindUniqueArgs} args - Arguments to find a Friends
+     * @example
+     * // Get one Friends
+     * const friends = await prisma.friends.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends FriendsFindUniqueArgs>(args: SelectSubset<T, FriendsFindUniqueArgs<ExtArgs>>): Prisma__FriendsClient<$Result.GetResult<Prisma.$FriendsPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Friends that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {FriendsFindUniqueOrThrowArgs} args - Arguments to find a Friends
+     * @example
+     * // Get one Friends
+     * const friends = await prisma.friends.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends FriendsFindUniqueOrThrowArgs>(args: SelectSubset<T, FriendsFindUniqueOrThrowArgs<ExtArgs>>): Prisma__FriendsClient<$Result.GetResult<Prisma.$FriendsPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Friends that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FriendsFindFirstArgs} args - Arguments to find a Friends
+     * @example
+     * // Get one Friends
+     * const friends = await prisma.friends.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends FriendsFindFirstArgs>(args?: SelectSubset<T, FriendsFindFirstArgs<ExtArgs>>): Prisma__FriendsClient<$Result.GetResult<Prisma.$FriendsPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Friends that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FriendsFindFirstOrThrowArgs} args - Arguments to find a Friends
+     * @example
+     * // Get one Friends
+     * const friends = await prisma.friends.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends FriendsFindFirstOrThrowArgs>(args?: SelectSubset<T, FriendsFindFirstOrThrowArgs<ExtArgs>>): Prisma__FriendsClient<$Result.GetResult<Prisma.$FriendsPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Friends that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FriendsFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Friends
+     * const friends = await prisma.friends.findMany()
+     * 
+     * // Get first 10 Friends
+     * const friends = await prisma.friends.findMany({ take: 10 })
+     * 
+     * // Only select the `friendId`
+     * const friendsWithFriendIdOnly = await prisma.friends.findMany({ select: { friendId: true } })
+     * 
+     */
+    findMany<T extends FriendsFindManyArgs>(args?: SelectSubset<T, FriendsFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FriendsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Friends.
+     * @param {FriendsCreateArgs} args - Arguments to create a Friends.
+     * @example
+     * // Create one Friends
+     * const Friends = await prisma.friends.create({
+     *   data: {
+     *     // ... data to create a Friends
+     *   }
+     * })
+     * 
+     */
+    create<T extends FriendsCreateArgs>(args: SelectSubset<T, FriendsCreateArgs<ExtArgs>>): Prisma__FriendsClient<$Result.GetResult<Prisma.$FriendsPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Friends.
+     * @param {FriendsCreateManyArgs} args - Arguments to create many Friends.
+     * @example
+     * // Create many Friends
+     * const friends = await prisma.friends.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends FriendsCreateManyArgs>(args?: SelectSubset<T, FriendsCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Friends and returns the data saved in the database.
+     * @param {FriendsCreateManyAndReturnArgs} args - Arguments to create many Friends.
+     * @example
+     * // Create many Friends
+     * const friends = await prisma.friends.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Friends and only return the `friendId`
+     * const friendsWithFriendIdOnly = await prisma.friends.createManyAndReturn({
+     *   select: { friendId: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends FriendsCreateManyAndReturnArgs>(args?: SelectSubset<T, FriendsCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FriendsPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Friends.
+     * @param {FriendsDeleteArgs} args - Arguments to delete one Friends.
+     * @example
+     * // Delete one Friends
+     * const Friends = await prisma.friends.delete({
+     *   where: {
+     *     // ... filter to delete one Friends
+     *   }
+     * })
+     * 
+     */
+    delete<T extends FriendsDeleteArgs>(args: SelectSubset<T, FriendsDeleteArgs<ExtArgs>>): Prisma__FriendsClient<$Result.GetResult<Prisma.$FriendsPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Friends.
+     * @param {FriendsUpdateArgs} args - Arguments to update one Friends.
+     * @example
+     * // Update one Friends
+     * const friends = await prisma.friends.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends FriendsUpdateArgs>(args: SelectSubset<T, FriendsUpdateArgs<ExtArgs>>): Prisma__FriendsClient<$Result.GetResult<Prisma.$FriendsPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Friends.
+     * @param {FriendsDeleteManyArgs} args - Arguments to filter Friends to delete.
+     * @example
+     * // Delete a few Friends
+     * const { count } = await prisma.friends.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends FriendsDeleteManyArgs>(args?: SelectSubset<T, FriendsDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Friends.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FriendsUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Friends
+     * const friends = await prisma.friends.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends FriendsUpdateManyArgs>(args: SelectSubset<T, FriendsUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Friends and returns the data updated in the database.
+     * @param {FriendsUpdateManyAndReturnArgs} args - Arguments to update many Friends.
+     * @example
+     * // Update many Friends
+     * const friends = await prisma.friends.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Friends and only return the `friendId`
+     * const friendsWithFriendIdOnly = await prisma.friends.updateManyAndReturn({
+     *   select: { friendId: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends FriendsUpdateManyAndReturnArgs>(args: SelectSubset<T, FriendsUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FriendsPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Friends.
+     * @param {FriendsUpsertArgs} args - Arguments to update or create a Friends.
+     * @example
+     * // Update or create a Friends
+     * const friends = await prisma.friends.upsert({
+     *   create: {
+     *     // ... data to create a Friends
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Friends we want to update
+     *   }
+     * })
+     */
+    upsert<T extends FriendsUpsertArgs>(args: SelectSubset<T, FriendsUpsertArgs<ExtArgs>>): Prisma__FriendsClient<$Result.GetResult<Prisma.$FriendsPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Friends.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FriendsCountArgs} args - Arguments to filter Friends to count.
+     * @example
+     * // Count the number of Friends
+     * const count = await prisma.friends.count({
+     *   where: {
+     *     // ... the filter for the Friends we want to count
+     *   }
+     * })
+    **/
+    count<T extends FriendsCountArgs>(
+      args?: Subset<T, FriendsCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], FriendsCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Friends.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FriendsAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends FriendsAggregateArgs>(args: Subset<T, FriendsAggregateArgs>): Prisma.PrismaPromise<GetFriendsAggregateType<T>>
+
+    /**
+     * Group by Friends.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FriendsGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends FriendsGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: FriendsGroupByArgs['orderBy'] }
+        : { orderBy?: FriendsGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, FriendsGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetFriendsGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Friends model
+   */
+  readonly fields: FriendsFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Friends.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__FriendsClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    friend<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Friends model
+   */
+  interface FriendsFieldRefs {
+    readonly friendId: FieldRef<"Friends", 'Int'>
+    readonly savedAt: FieldRef<"Friends", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Friends findUnique
+   */
+  export type FriendsFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Friends
+     */
+    select?: FriendsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Friends
+     */
+    omit?: FriendsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FriendsInclude<ExtArgs> | null
+    /**
+     * Filter, which Friends to fetch.
+     */
+    where: FriendsWhereUniqueInput
+  }
+
+  /**
+   * Friends findUniqueOrThrow
+   */
+  export type FriendsFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Friends
+     */
+    select?: FriendsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Friends
+     */
+    omit?: FriendsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FriendsInclude<ExtArgs> | null
+    /**
+     * Filter, which Friends to fetch.
+     */
+    where: FriendsWhereUniqueInput
+  }
+
+  /**
+   * Friends findFirst
+   */
+  export type FriendsFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Friends
+     */
+    select?: FriendsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Friends
+     */
+    omit?: FriendsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FriendsInclude<ExtArgs> | null
+    /**
+     * Filter, which Friends to fetch.
+     */
+    where?: FriendsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Friends to fetch.
+     */
+    orderBy?: FriendsOrderByWithRelationInput | FriendsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Friends.
+     */
+    cursor?: FriendsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Friends from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Friends.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Friends.
+     */
+    distinct?: FriendsScalarFieldEnum | FriendsScalarFieldEnum[]
+  }
+
+  /**
+   * Friends findFirstOrThrow
+   */
+  export type FriendsFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Friends
+     */
+    select?: FriendsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Friends
+     */
+    omit?: FriendsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FriendsInclude<ExtArgs> | null
+    /**
+     * Filter, which Friends to fetch.
+     */
+    where?: FriendsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Friends to fetch.
+     */
+    orderBy?: FriendsOrderByWithRelationInput | FriendsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Friends.
+     */
+    cursor?: FriendsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Friends from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Friends.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Friends.
+     */
+    distinct?: FriendsScalarFieldEnum | FriendsScalarFieldEnum[]
+  }
+
+  /**
+   * Friends findMany
+   */
+  export type FriendsFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Friends
+     */
+    select?: FriendsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Friends
+     */
+    omit?: FriendsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FriendsInclude<ExtArgs> | null
+    /**
+     * Filter, which Friends to fetch.
+     */
+    where?: FriendsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Friends to fetch.
+     */
+    orderBy?: FriendsOrderByWithRelationInput | FriendsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Friends.
+     */
+    cursor?: FriendsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Friends from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Friends.
+     */
+    skip?: number
+    distinct?: FriendsScalarFieldEnum | FriendsScalarFieldEnum[]
+  }
+
+  /**
+   * Friends create
+   */
+  export type FriendsCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Friends
+     */
+    select?: FriendsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Friends
+     */
+    omit?: FriendsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FriendsInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Friends.
+     */
+    data: XOR<FriendsCreateInput, FriendsUncheckedCreateInput>
+  }
+
+  /**
+   * Friends createMany
+   */
+  export type FriendsCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Friends.
+     */
+    data: FriendsCreateManyInput | FriendsCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Friends createManyAndReturn
+   */
+  export type FriendsCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Friends
+     */
+    select?: FriendsSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Friends
+     */
+    omit?: FriendsOmit<ExtArgs> | null
+    /**
+     * The data used to create many Friends.
+     */
+    data: FriendsCreateManyInput | FriendsCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FriendsIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Friends update
+   */
+  export type FriendsUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Friends
+     */
+    select?: FriendsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Friends
+     */
+    omit?: FriendsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FriendsInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Friends.
+     */
+    data: XOR<FriendsUpdateInput, FriendsUncheckedUpdateInput>
+    /**
+     * Choose, which Friends to update.
+     */
+    where: FriendsWhereUniqueInput
+  }
+
+  /**
+   * Friends updateMany
+   */
+  export type FriendsUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Friends.
+     */
+    data: XOR<FriendsUpdateManyMutationInput, FriendsUncheckedUpdateManyInput>
+    /**
+     * Filter which Friends to update
+     */
+    where?: FriendsWhereInput
+    /**
+     * Limit how many Friends to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Friends updateManyAndReturn
+   */
+  export type FriendsUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Friends
+     */
+    select?: FriendsSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Friends
+     */
+    omit?: FriendsOmit<ExtArgs> | null
+    /**
+     * The data used to update Friends.
+     */
+    data: XOR<FriendsUpdateManyMutationInput, FriendsUncheckedUpdateManyInput>
+    /**
+     * Filter which Friends to update
+     */
+    where?: FriendsWhereInput
+    /**
+     * Limit how many Friends to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FriendsIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Friends upsert
+   */
+  export type FriendsUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Friends
+     */
+    select?: FriendsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Friends
+     */
+    omit?: FriendsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FriendsInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Friends to update in case it exists.
+     */
+    where: FriendsWhereUniqueInput
+    /**
+     * In case the Friends found by the `where` argument doesn't exist, create a new Friends with this data.
+     */
+    create: XOR<FriendsCreateInput, FriendsUncheckedCreateInput>
+    /**
+     * In case the Friends was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<FriendsUpdateInput, FriendsUncheckedUpdateInput>
+  }
+
+  /**
+   * Friends delete
+   */
+  export type FriendsDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Friends
+     */
+    select?: FriendsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Friends
+     */
+    omit?: FriendsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FriendsInclude<ExtArgs> | null
+    /**
+     * Filter which Friends to delete.
+     */
+    where: FriendsWhereUniqueInput
+  }
+
+  /**
+   * Friends deleteMany
+   */
+  export type FriendsDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Friends to delete
+     */
+    where?: FriendsWhereInput
+    /**
+     * Limit how many Friends to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Friends without action
+   */
+  export type FriendsDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Friends
+     */
+    select?: FriendsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Friends
+     */
+    omit?: FriendsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FriendsInclude<ExtArgs> | null
   }
 
 
@@ -5779,6 +6973,7 @@ export namespace Prisma {
     email: 'email',
     name: 'name',
     password: 'password',
+    picture: 'picture',
     bio: 'bio'
   };
 
@@ -5798,6 +6993,14 @@ export namespace Prisma {
   };
 
   export type PostScalarFieldEnum = (typeof PostScalarFieldEnum)[keyof typeof PostScalarFieldEnum]
+
+
+  export const FriendsScalarFieldEnum: {
+    friendId: 'friendId',
+    savedAt: 'savedAt'
+  };
+
+  export type FriendsScalarFieldEnum = (typeof FriendsScalarFieldEnum)[keyof typeof FriendsScalarFieldEnum]
 
 
   export const SavedPostScalarFieldEnum: {
@@ -5913,10 +7116,12 @@ export namespace Prisma {
     email?: StringFilter<"User"> | string
     name?: StringFilter<"User"> | string
     password?: StringFilter<"User"> | string
+    picture?: StringFilter<"User"> | string
     bio?: StringFilter<"User"> | string
     posts?: PostListRelationFilter
     savedPosts?: SavedPostListRelationFilter
     likedPosts?: LikedPostListRelationFilter
+    friends?: FriendsListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
@@ -5924,10 +7129,12 @@ export namespace Prisma {
     email?: SortOrder
     name?: SortOrder
     password?: SortOrder
+    picture?: SortOrder
     bio?: SortOrder
     posts?: PostOrderByRelationAggregateInput
     savedPosts?: SavedPostOrderByRelationAggregateInput
     likedPosts?: LikedPostOrderByRelationAggregateInput
+    friends?: FriendsOrderByRelationAggregateInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -5938,10 +7145,12 @@ export namespace Prisma {
     NOT?: UserWhereInput | UserWhereInput[]
     name?: StringFilter<"User"> | string
     password?: StringFilter<"User"> | string
+    picture?: StringFilter<"User"> | string
     bio?: StringFilter<"User"> | string
     posts?: PostListRelationFilter
     savedPosts?: SavedPostListRelationFilter
     likedPosts?: LikedPostListRelationFilter
+    friends?: FriendsListRelationFilter
   }, "id" | "email">
 
   export type UserOrderByWithAggregationInput = {
@@ -5949,6 +7158,7 @@ export namespace Prisma {
     email?: SortOrder
     name?: SortOrder
     password?: SortOrder
+    picture?: SortOrder
     bio?: SortOrder
     _count?: UserCountOrderByAggregateInput
     _avg?: UserAvgOrderByAggregateInput
@@ -5965,6 +7175,7 @@ export namespace Prisma {
     email?: StringWithAggregatesFilter<"User"> | string
     name?: StringWithAggregatesFilter<"User"> | string
     password?: StringWithAggregatesFilter<"User"> | string
+    picture?: StringWithAggregatesFilter<"User"> | string
     bio?: StringWithAggregatesFilter<"User"> | string
   }
 
@@ -6049,6 +7260,49 @@ export namespace Prisma {
     savedCount?: IntWithAggregatesFilter<"Post"> | number
     createdAt?: DateTimeWithAggregatesFilter<"Post"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Post"> | Date | string
+  }
+
+  export type FriendsWhereInput = {
+    AND?: FriendsWhereInput | FriendsWhereInput[]
+    OR?: FriendsWhereInput[]
+    NOT?: FriendsWhereInput | FriendsWhereInput[]
+    friendId?: IntFilter<"Friends"> | number
+    savedAt?: DateTimeFilter<"Friends"> | Date | string
+    friend?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }
+
+  export type FriendsOrderByWithRelationInput = {
+    friendId?: SortOrder
+    savedAt?: SortOrder
+    friend?: UserOrderByWithRelationInput
+  }
+
+  export type FriendsWhereUniqueInput = Prisma.AtLeast<{
+    savedAt_friendId?: FriendsSavedAtFriendIdCompoundUniqueInput
+    AND?: FriendsWhereInput | FriendsWhereInput[]
+    OR?: FriendsWhereInput[]
+    NOT?: FriendsWhereInput | FriendsWhereInput[]
+    friendId?: IntFilter<"Friends"> | number
+    savedAt?: DateTimeFilter<"Friends"> | Date | string
+    friend?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }, "savedAt_friendId">
+
+  export type FriendsOrderByWithAggregationInput = {
+    friendId?: SortOrder
+    savedAt?: SortOrder
+    _count?: FriendsCountOrderByAggregateInput
+    _avg?: FriendsAvgOrderByAggregateInput
+    _max?: FriendsMaxOrderByAggregateInput
+    _min?: FriendsMinOrderByAggregateInput
+    _sum?: FriendsSumOrderByAggregateInput
+  }
+
+  export type FriendsScalarWhereWithAggregatesInput = {
+    AND?: FriendsScalarWhereWithAggregatesInput | FriendsScalarWhereWithAggregatesInput[]
+    OR?: FriendsScalarWhereWithAggregatesInput[]
+    NOT?: FriendsScalarWhereWithAggregatesInput | FriendsScalarWhereWithAggregatesInput[]
+    friendId?: IntWithAggregatesFilter<"Friends"> | number
+    savedAt?: DateTimeWithAggregatesFilter<"Friends"> | Date | string
   }
 
   export type SavedPostWhereInput = {
@@ -6157,10 +7411,12 @@ export namespace Prisma {
     email: string
     name: string
     password: string
+    picture?: string
     bio?: string
     posts?: PostCreateNestedManyWithoutAuthorInput
     savedPosts?: SavedPostCreateNestedManyWithoutUserInput
     likedPosts?: LikedPostCreateNestedManyWithoutUserInput
+    friends?: FriendsCreateNestedManyWithoutFriendInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -6168,20 +7424,24 @@ export namespace Prisma {
     email: string
     name: string
     password: string
+    picture?: string
     bio?: string
     posts?: PostUncheckedCreateNestedManyWithoutAuthorInput
     savedPosts?: SavedPostUncheckedCreateNestedManyWithoutUserInput
     likedPosts?: LikedPostUncheckedCreateNestedManyWithoutUserInput
+    friends?: FriendsUncheckedCreateNestedManyWithoutFriendInput
   }
 
   export type UserUpdateInput = {
     email?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
+    picture?: StringFieldUpdateOperationsInput | string
     bio?: StringFieldUpdateOperationsInput | string
     posts?: PostUpdateManyWithoutAuthorNestedInput
     savedPosts?: SavedPostUpdateManyWithoutUserNestedInput
     likedPosts?: LikedPostUpdateManyWithoutUserNestedInput
+    friends?: FriendsUpdateManyWithoutFriendNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -6189,10 +7449,12 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
+    picture?: StringFieldUpdateOperationsInput | string
     bio?: StringFieldUpdateOperationsInput | string
     posts?: PostUncheckedUpdateManyWithoutAuthorNestedInput
     savedPosts?: SavedPostUncheckedUpdateManyWithoutUserNestedInput
     likedPosts?: LikedPostUncheckedUpdateManyWithoutUserNestedInput
+    friends?: FriendsUncheckedUpdateManyWithoutFriendNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -6200,6 +7462,7 @@ export namespace Prisma {
     email: string
     name: string
     password: string
+    picture?: string
     bio?: string
   }
 
@@ -6207,6 +7470,7 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
+    picture?: StringFieldUpdateOperationsInput | string
     bio?: StringFieldUpdateOperationsInput | string
   }
 
@@ -6215,6 +7479,7 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
+    picture?: StringFieldUpdateOperationsInput | string
     bio?: StringFieldUpdateOperationsInput | string
   }
 
@@ -6304,6 +7569,40 @@ export namespace Prisma {
     savedCount?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type FriendsCreateInput = {
+    savedAt?: Date | string
+    friend: UserCreateNestedOneWithoutFriendsInput
+  }
+
+  export type FriendsUncheckedCreateInput = {
+    friendId: number
+    savedAt?: Date | string
+  }
+
+  export type FriendsUpdateInput = {
+    savedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    friend?: UserUpdateOneRequiredWithoutFriendsNestedInput
+  }
+
+  export type FriendsUncheckedUpdateInput = {
+    friendId?: IntFieldUpdateOperationsInput | number
+    savedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type FriendsCreateManyInput = {
+    friendId: number
+    savedAt?: Date | string
+  }
+
+  export type FriendsUpdateManyMutationInput = {
+    savedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type FriendsUncheckedUpdateManyInput = {
+    friendId?: IntFieldUpdateOperationsInput | number
+    savedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type SavedPostCreateInput = {
@@ -6430,6 +7729,12 @@ export namespace Prisma {
     none?: LikedPostWhereInput
   }
 
+  export type FriendsListRelationFilter = {
+    every?: FriendsWhereInput
+    some?: FriendsWhereInput
+    none?: FriendsWhereInput
+  }
+
   export type PostOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
@@ -6442,11 +7747,16 @@ export namespace Prisma {
     _count?: SortOrder
   }
 
+  export type FriendsOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
   export type UserCountOrderByAggregateInput = {
     id?: SortOrder
     email?: SortOrder
     name?: SortOrder
     password?: SortOrder
+    picture?: SortOrder
     bio?: SortOrder
   }
 
@@ -6459,6 +7769,7 @@ export namespace Prisma {
     email?: SortOrder
     name?: SortOrder
     password?: SortOrder
+    picture?: SortOrder
     bio?: SortOrder
   }
 
@@ -6467,6 +7778,7 @@ export namespace Prisma {
     email?: SortOrder
     name?: SortOrder
     password?: SortOrder
+    picture?: SortOrder
     bio?: SortOrder
   }
 
@@ -6601,6 +7913,34 @@ export namespace Prisma {
     _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
+  export type FriendsSavedAtFriendIdCompoundUniqueInput = {
+    savedAt: Date | string
+    friendId: number
+  }
+
+  export type FriendsCountOrderByAggregateInput = {
+    friendId?: SortOrder
+    savedAt?: SortOrder
+  }
+
+  export type FriendsAvgOrderByAggregateInput = {
+    friendId?: SortOrder
+  }
+
+  export type FriendsMaxOrderByAggregateInput = {
+    friendId?: SortOrder
+    savedAt?: SortOrder
+  }
+
+  export type FriendsMinOrderByAggregateInput = {
+    friendId?: SortOrder
+    savedAt?: SortOrder
+  }
+
+  export type FriendsSumOrderByAggregateInput = {
+    friendId?: SortOrder
+  }
+
   export type PostScalarRelationFilter = {
     is?: PostWhereInput
     isNot?: PostWhereInput
@@ -6693,6 +8033,13 @@ export namespace Prisma {
     connect?: LikedPostWhereUniqueInput | LikedPostWhereUniqueInput[]
   }
 
+  export type FriendsCreateNestedManyWithoutFriendInput = {
+    create?: XOR<FriendsCreateWithoutFriendInput, FriendsUncheckedCreateWithoutFriendInput> | FriendsCreateWithoutFriendInput[] | FriendsUncheckedCreateWithoutFriendInput[]
+    connectOrCreate?: FriendsCreateOrConnectWithoutFriendInput | FriendsCreateOrConnectWithoutFriendInput[]
+    createMany?: FriendsCreateManyFriendInputEnvelope
+    connect?: FriendsWhereUniqueInput | FriendsWhereUniqueInput[]
+  }
+
   export type PostUncheckedCreateNestedManyWithoutAuthorInput = {
     create?: XOR<PostCreateWithoutAuthorInput, PostUncheckedCreateWithoutAuthorInput> | PostCreateWithoutAuthorInput[] | PostUncheckedCreateWithoutAuthorInput[]
     connectOrCreate?: PostCreateOrConnectWithoutAuthorInput | PostCreateOrConnectWithoutAuthorInput[]
@@ -6712,6 +8059,13 @@ export namespace Prisma {
     connectOrCreate?: LikedPostCreateOrConnectWithoutUserInput | LikedPostCreateOrConnectWithoutUserInput[]
     createMany?: LikedPostCreateManyUserInputEnvelope
     connect?: LikedPostWhereUniqueInput | LikedPostWhereUniqueInput[]
+  }
+
+  export type FriendsUncheckedCreateNestedManyWithoutFriendInput = {
+    create?: XOR<FriendsCreateWithoutFriendInput, FriendsUncheckedCreateWithoutFriendInput> | FriendsCreateWithoutFriendInput[] | FriendsUncheckedCreateWithoutFriendInput[]
+    connectOrCreate?: FriendsCreateOrConnectWithoutFriendInput | FriendsCreateOrConnectWithoutFriendInput[]
+    createMany?: FriendsCreateManyFriendInputEnvelope
+    connect?: FriendsWhereUniqueInput | FriendsWhereUniqueInput[]
   }
 
   export type StringFieldUpdateOperationsInput = {
@@ -6758,6 +8112,20 @@ export namespace Prisma {
     update?: LikedPostUpdateWithWhereUniqueWithoutUserInput | LikedPostUpdateWithWhereUniqueWithoutUserInput[]
     updateMany?: LikedPostUpdateManyWithWhereWithoutUserInput | LikedPostUpdateManyWithWhereWithoutUserInput[]
     deleteMany?: LikedPostScalarWhereInput | LikedPostScalarWhereInput[]
+  }
+
+  export type FriendsUpdateManyWithoutFriendNestedInput = {
+    create?: XOR<FriendsCreateWithoutFriendInput, FriendsUncheckedCreateWithoutFriendInput> | FriendsCreateWithoutFriendInput[] | FriendsUncheckedCreateWithoutFriendInput[]
+    connectOrCreate?: FriendsCreateOrConnectWithoutFriendInput | FriendsCreateOrConnectWithoutFriendInput[]
+    upsert?: FriendsUpsertWithWhereUniqueWithoutFriendInput | FriendsUpsertWithWhereUniqueWithoutFriendInput[]
+    createMany?: FriendsCreateManyFriendInputEnvelope
+    set?: FriendsWhereUniqueInput | FriendsWhereUniqueInput[]
+    disconnect?: FriendsWhereUniqueInput | FriendsWhereUniqueInput[]
+    delete?: FriendsWhereUniqueInput | FriendsWhereUniqueInput[]
+    connect?: FriendsWhereUniqueInput | FriendsWhereUniqueInput[]
+    update?: FriendsUpdateWithWhereUniqueWithoutFriendInput | FriendsUpdateWithWhereUniqueWithoutFriendInput[]
+    updateMany?: FriendsUpdateManyWithWhereWithoutFriendInput | FriendsUpdateManyWithWhereWithoutFriendInput[]
+    deleteMany?: FriendsScalarWhereInput | FriendsScalarWhereInput[]
   }
 
   export type IntFieldUpdateOperationsInput = {
@@ -6808,6 +8176,20 @@ export namespace Prisma {
     update?: LikedPostUpdateWithWhereUniqueWithoutUserInput | LikedPostUpdateWithWhereUniqueWithoutUserInput[]
     updateMany?: LikedPostUpdateManyWithWhereWithoutUserInput | LikedPostUpdateManyWithWhereWithoutUserInput[]
     deleteMany?: LikedPostScalarWhereInput | LikedPostScalarWhereInput[]
+  }
+
+  export type FriendsUncheckedUpdateManyWithoutFriendNestedInput = {
+    create?: XOR<FriendsCreateWithoutFriendInput, FriendsUncheckedCreateWithoutFriendInput> | FriendsCreateWithoutFriendInput[] | FriendsUncheckedCreateWithoutFriendInput[]
+    connectOrCreate?: FriendsCreateOrConnectWithoutFriendInput | FriendsCreateOrConnectWithoutFriendInput[]
+    upsert?: FriendsUpsertWithWhereUniqueWithoutFriendInput | FriendsUpsertWithWhereUniqueWithoutFriendInput[]
+    createMany?: FriendsCreateManyFriendInputEnvelope
+    set?: FriendsWhereUniqueInput | FriendsWhereUniqueInput[]
+    disconnect?: FriendsWhereUniqueInput | FriendsWhereUniqueInput[]
+    delete?: FriendsWhereUniqueInput | FriendsWhereUniqueInput[]
+    connect?: FriendsWhereUniqueInput | FriendsWhereUniqueInput[]
+    update?: FriendsUpdateWithWhereUniqueWithoutFriendInput | FriendsUpdateWithWhereUniqueWithoutFriendInput[]
+    updateMany?: FriendsUpdateManyWithWhereWithoutFriendInput | FriendsUpdateManyWithWhereWithoutFriendInput[]
+    deleteMany?: FriendsScalarWhereInput | FriendsScalarWhereInput[]
   }
 
   export type UserCreateNestedOneWithoutPostsInput = {
@@ -6914,6 +8296,20 @@ export namespace Prisma {
     update?: LikedPostUpdateWithWhereUniqueWithoutPostInput | LikedPostUpdateWithWhereUniqueWithoutPostInput[]
     updateMany?: LikedPostUpdateManyWithWhereWithoutPostInput | LikedPostUpdateManyWithWhereWithoutPostInput[]
     deleteMany?: LikedPostScalarWhereInput | LikedPostScalarWhereInput[]
+  }
+
+  export type UserCreateNestedOneWithoutFriendsInput = {
+    create?: XOR<UserCreateWithoutFriendsInput, UserUncheckedCreateWithoutFriendsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutFriendsInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type UserUpdateOneRequiredWithoutFriendsNestedInput = {
+    create?: XOR<UserCreateWithoutFriendsInput, UserUncheckedCreateWithoutFriendsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutFriendsInput
+    upsert?: UserUpsertWithoutFriendsInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutFriendsInput, UserUpdateWithoutFriendsInput>, UserUncheckedUpdateWithoutFriendsInput>
   }
 
   export type UserCreateNestedOneWithoutSavedPostsInput = {
@@ -7154,6 +8550,24 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type FriendsCreateWithoutFriendInput = {
+    savedAt?: Date | string
+  }
+
+  export type FriendsUncheckedCreateWithoutFriendInput = {
+    savedAt?: Date | string
+  }
+
+  export type FriendsCreateOrConnectWithoutFriendInput = {
+    where: FriendsWhereUniqueInput
+    create: XOR<FriendsCreateWithoutFriendInput, FriendsUncheckedCreateWithoutFriendInput>
+  }
+
+  export type FriendsCreateManyFriendInputEnvelope = {
+    data: FriendsCreateManyFriendInput | FriendsCreateManyFriendInput[]
+    skipDuplicates?: boolean
+  }
+
   export type PostUpsertWithWhereUniqueWithoutAuthorInput = {
     where: PostWhereUniqueInput
     update: XOR<PostUpdateWithoutAuthorInput, PostUncheckedUpdateWithoutAuthorInput>
@@ -7235,13 +8649,39 @@ export namespace Prisma {
     likedAt?: DateTimeFilter<"LikedPost"> | Date | string
   }
 
+  export type FriendsUpsertWithWhereUniqueWithoutFriendInput = {
+    where: FriendsWhereUniqueInput
+    update: XOR<FriendsUpdateWithoutFriendInput, FriendsUncheckedUpdateWithoutFriendInput>
+    create: XOR<FriendsCreateWithoutFriendInput, FriendsUncheckedCreateWithoutFriendInput>
+  }
+
+  export type FriendsUpdateWithWhereUniqueWithoutFriendInput = {
+    where: FriendsWhereUniqueInput
+    data: XOR<FriendsUpdateWithoutFriendInput, FriendsUncheckedUpdateWithoutFriendInput>
+  }
+
+  export type FriendsUpdateManyWithWhereWithoutFriendInput = {
+    where: FriendsScalarWhereInput
+    data: XOR<FriendsUpdateManyMutationInput, FriendsUncheckedUpdateManyWithoutFriendInput>
+  }
+
+  export type FriendsScalarWhereInput = {
+    AND?: FriendsScalarWhereInput | FriendsScalarWhereInput[]
+    OR?: FriendsScalarWhereInput[]
+    NOT?: FriendsScalarWhereInput | FriendsScalarWhereInput[]
+    friendId?: IntFilter<"Friends"> | number
+    savedAt?: DateTimeFilter<"Friends"> | Date | string
+  }
+
   export type UserCreateWithoutPostsInput = {
     email: string
     name: string
     password: string
+    picture?: string
     bio?: string
     savedPosts?: SavedPostCreateNestedManyWithoutUserInput
     likedPosts?: LikedPostCreateNestedManyWithoutUserInput
+    friends?: FriendsCreateNestedManyWithoutFriendInput
   }
 
   export type UserUncheckedCreateWithoutPostsInput = {
@@ -7249,9 +8689,11 @@ export namespace Prisma {
     email: string
     name: string
     password: string
+    picture?: string
     bio?: string
     savedPosts?: SavedPostUncheckedCreateNestedManyWithoutUserInput
     likedPosts?: LikedPostUncheckedCreateNestedManyWithoutUserInput
+    friends?: FriendsUncheckedCreateNestedManyWithoutFriendInput
   }
 
   export type UserCreateOrConnectWithoutPostsInput = {
@@ -7314,9 +8756,11 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
+    picture?: StringFieldUpdateOperationsInput | string
     bio?: StringFieldUpdateOperationsInput | string
     savedPosts?: SavedPostUpdateManyWithoutUserNestedInput
     likedPosts?: LikedPostUpdateManyWithoutUserNestedInput
+    friends?: FriendsUpdateManyWithoutFriendNestedInput
   }
 
   export type UserUncheckedUpdateWithoutPostsInput = {
@@ -7324,9 +8768,11 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
+    picture?: StringFieldUpdateOperationsInput | string
     bio?: StringFieldUpdateOperationsInput | string
     savedPosts?: SavedPostUncheckedUpdateManyWithoutUserNestedInput
     likedPosts?: LikedPostUncheckedUpdateManyWithoutUserNestedInput
+    friends?: FriendsUncheckedUpdateManyWithoutFriendNestedInput
   }
 
   export type SavedPostUpsertWithWhereUniqueWithoutPostInput = {
@@ -7361,13 +8807,77 @@ export namespace Prisma {
     data: XOR<LikedPostUpdateManyMutationInput, LikedPostUncheckedUpdateManyWithoutPostInput>
   }
 
+  export type UserCreateWithoutFriendsInput = {
+    email: string
+    name: string
+    password: string
+    picture?: string
+    bio?: string
+    posts?: PostCreateNestedManyWithoutAuthorInput
+    savedPosts?: SavedPostCreateNestedManyWithoutUserInput
+    likedPosts?: LikedPostCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutFriendsInput = {
+    id?: number
+    email: string
+    name: string
+    password: string
+    picture?: string
+    bio?: string
+    posts?: PostUncheckedCreateNestedManyWithoutAuthorInput
+    savedPosts?: SavedPostUncheckedCreateNestedManyWithoutUserInput
+    likedPosts?: LikedPostUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutFriendsInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutFriendsInput, UserUncheckedCreateWithoutFriendsInput>
+  }
+
+  export type UserUpsertWithoutFriendsInput = {
+    update: XOR<UserUpdateWithoutFriendsInput, UserUncheckedUpdateWithoutFriendsInput>
+    create: XOR<UserCreateWithoutFriendsInput, UserUncheckedCreateWithoutFriendsInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutFriendsInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutFriendsInput, UserUncheckedUpdateWithoutFriendsInput>
+  }
+
+  export type UserUpdateWithoutFriendsInput = {
+    email?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    picture?: StringFieldUpdateOperationsInput | string
+    bio?: StringFieldUpdateOperationsInput | string
+    posts?: PostUpdateManyWithoutAuthorNestedInput
+    savedPosts?: SavedPostUpdateManyWithoutUserNestedInput
+    likedPosts?: LikedPostUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutFriendsInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    email?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    picture?: StringFieldUpdateOperationsInput | string
+    bio?: StringFieldUpdateOperationsInput | string
+    posts?: PostUncheckedUpdateManyWithoutAuthorNestedInput
+    savedPosts?: SavedPostUncheckedUpdateManyWithoutUserNestedInput
+    likedPosts?: LikedPostUncheckedUpdateManyWithoutUserNestedInput
+  }
+
   export type UserCreateWithoutSavedPostsInput = {
     email: string
     name: string
     password: string
+    picture?: string
     bio?: string
     posts?: PostCreateNestedManyWithoutAuthorInput
     likedPosts?: LikedPostCreateNestedManyWithoutUserInput
+    friends?: FriendsCreateNestedManyWithoutFriendInput
   }
 
   export type UserUncheckedCreateWithoutSavedPostsInput = {
@@ -7375,9 +8885,11 @@ export namespace Prisma {
     email: string
     name: string
     password: string
+    picture?: string
     bio?: string
     posts?: PostUncheckedCreateNestedManyWithoutAuthorInput
     likedPosts?: LikedPostUncheckedCreateNestedManyWithoutUserInput
+    friends?: FriendsUncheckedCreateNestedManyWithoutFriendInput
   }
 
   export type UserCreateOrConnectWithoutSavedPostsInput = {
@@ -7430,9 +8942,11 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
+    picture?: StringFieldUpdateOperationsInput | string
     bio?: StringFieldUpdateOperationsInput | string
     posts?: PostUpdateManyWithoutAuthorNestedInput
     likedPosts?: LikedPostUpdateManyWithoutUserNestedInput
+    friends?: FriendsUpdateManyWithoutFriendNestedInput
   }
 
   export type UserUncheckedUpdateWithoutSavedPostsInput = {
@@ -7440,9 +8954,11 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
+    picture?: StringFieldUpdateOperationsInput | string
     bio?: StringFieldUpdateOperationsInput | string
     posts?: PostUncheckedUpdateManyWithoutAuthorNestedInput
     likedPosts?: LikedPostUncheckedUpdateManyWithoutUserNestedInput
+    friends?: FriendsUncheckedUpdateManyWithoutFriendNestedInput
   }
 
   export type PostUpsertWithoutSavedByInput = {
@@ -7485,9 +9001,11 @@ export namespace Prisma {
     email: string
     name: string
     password: string
+    picture?: string
     bio?: string
     posts?: PostCreateNestedManyWithoutAuthorInput
     savedPosts?: SavedPostCreateNestedManyWithoutUserInput
+    friends?: FriendsCreateNestedManyWithoutFriendInput
   }
 
   export type UserUncheckedCreateWithoutLikedPostsInput = {
@@ -7495,9 +9013,11 @@ export namespace Prisma {
     email: string
     name: string
     password: string
+    picture?: string
     bio?: string
     posts?: PostUncheckedCreateNestedManyWithoutAuthorInput
     savedPosts?: SavedPostUncheckedCreateNestedManyWithoutUserInput
+    friends?: FriendsUncheckedCreateNestedManyWithoutFriendInput
   }
 
   export type UserCreateOrConnectWithoutLikedPostsInput = {
@@ -7550,9 +9070,11 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
+    picture?: StringFieldUpdateOperationsInput | string
     bio?: StringFieldUpdateOperationsInput | string
     posts?: PostUpdateManyWithoutAuthorNestedInput
     savedPosts?: SavedPostUpdateManyWithoutUserNestedInput
+    friends?: FriendsUpdateManyWithoutFriendNestedInput
   }
 
   export type UserUncheckedUpdateWithoutLikedPostsInput = {
@@ -7560,9 +9082,11 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
+    picture?: StringFieldUpdateOperationsInput | string
     bio?: StringFieldUpdateOperationsInput | string
     posts?: PostUncheckedUpdateManyWithoutAuthorNestedInput
     savedPosts?: SavedPostUncheckedUpdateManyWithoutUserNestedInput
+    friends?: FriendsUncheckedUpdateManyWithoutFriendNestedInput
   }
 
   export type PostUpsertWithoutLikedByInput = {
@@ -7620,6 +9144,10 @@ export namespace Prisma {
   export type LikedPostCreateManyUserInput = {
     postId: number
     likedAt?: Date | string
+  }
+
+  export type FriendsCreateManyFriendInput = {
+    savedAt?: Date | string
   }
 
   export type PostUpdateWithoutAuthorInput = {
@@ -7686,6 +9214,18 @@ export namespace Prisma {
   export type LikedPostUncheckedUpdateManyWithoutUserInput = {
     postId?: IntFieldUpdateOperationsInput | number
     likedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type FriendsUpdateWithoutFriendInput = {
+    savedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type FriendsUncheckedUpdateWithoutFriendInput = {
+    savedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type FriendsUncheckedUpdateManyWithoutFriendInput = {
+    savedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type SavedPostCreateManyPostInput = {

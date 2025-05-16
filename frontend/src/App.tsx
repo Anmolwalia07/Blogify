@@ -9,6 +9,7 @@ import Post from "./pages/Post"
 import ScrollToTop  from "./component/ScrollToTop"
 import DrafedBlogs from "./pages/DrafedBlogs"
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
+import Profile from "./pages/Profile"
 
 export  type item={
   id :number,     
@@ -39,11 +40,12 @@ export  type item={
     name:string,
     email:string,
     bio:string,
+    picture:string
     likedPosts:LikedPosts[],
     savedPosts:SavedPosts[]
   }
 
-  type LikedPosts={
+  export type LikedPosts={
     userId:number,
     postId:number
   }
@@ -67,7 +69,8 @@ function App() {
       
         <Route path="/post" element={<ProtectedWrapper> <ScrollToTop/><Post/></ProtectedWrapper>}/>
         <Route path="/blog/drafted" element={<ProtectedWrapper> <ScrollToTop/><DrafedBlogs/></ProtectedWrapper>}/>
-      
+
+        <Route path="/profile" element={<ProtectedWrapper><Profile/></ProtectedWrapper>}/>
     </Routes>
     </BrowserRouter>
     </QueryClientProvider>

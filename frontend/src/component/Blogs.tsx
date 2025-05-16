@@ -4,8 +4,8 @@ import { API_url } from "../url";
 import axios from "axios";
 import { useInView } from 'react-intersection-observer';
 import type { item } from "../App";
-import SavedBlog from "./savedBlog";
 import LikeComponent from "./LikeComponent";
+import SavedBlog from "./SavedBlog";
 
 
 

@@ -28,7 +28,6 @@ blogRouter.use("/*",async(c,next)=>{
     try{
       const decode= await verify(token,c.env.JWT_SECRET);
     if(decode){
-    console.log(decode.id)
       c.set('userId', String(decode.id));
       await next();
     }
@@ -51,7 +50,6 @@ blogRouter.post('/create', async (c) => {
         c.status(400)
         return c.json({message:"Insufficient content"})
     }
-    console.log(body)
 	const post = await prisma.post.create({
 		data: {
 			title: body.title,
@@ -176,14 +174,29 @@ blogRouter.get("/:id",async(c)=>{
     const response=await prisma.post.findUnique({
         where:{
             id:id
+        },
+        include:{
+            savedBy:{
+                select:{
+                    userId:true,
+                    postId:true
+                }
+            },
+            likedBy:{
+                select:{
+                    userId:true,
+                    postId:true
+                }
+            }
         }
     })
-
+    c.status(201)
     return c.json({
-        response
+        blog:response
     })
 
     }catch(e){
+        c.status(401)
         return c.json({
             message:e
         })
@@ -191,6 +204,29 @@ blogRouter.get("/:id",async(c)=>{
 
 })
 
+blogRouter.put('/updateLikeCount/:id',async(c)=>{
+    const id=Number(c.req.param("id"))
+    const prisma = new PrismaClient({
+		datasourceUrl: c.env?.DATABASE_URL	,
+	}).$extends(withAccelerate());
+    const body=await c.req.json();
+   try{
+     await prisma.post.update({
+        where:{
+            id:id,
+        },
+        data:{
+            likeCount:body.likeCount,
+        }
+    })
+    c.status(200);
+    return c.json({message:"Like Updated"})
+   }catch(err){
+    c.status(401);
+    return c.json({message:"Internal Error"})
+   }
+	
+})
 
 blogRouter.put('/update', async (c) => {
 	const userId = c.get('userId');

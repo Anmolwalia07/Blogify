@@ -1,22 +1,17 @@
 import { useContext, useEffect, useState } from "react";
-import { FaHeart } from "react-icons/fa";
-import { CiHeart } from "react-icons/ci";
-import { CiBookmark } from "react-icons/ci";
-import { FaBookmark } from "react-icons/fa";
 import { UserContext } from "../context/UserContext";
 import { API_url } from "../url";
 import axios from "axios";
 import { useInView } from 'react-intersection-observer';
 import type { item } from "../App";
+import SavedBlog from "./savedBlog";
+import LikeComponent from "./LikeComponent";
 
 
 
 function Blogs() {
   let PazeSize=4;
   const context=useContext(UserContext)
-  //@ts-ignore
-  const [likeCount, setLikeCount] = useState(20);
-  const [isLiked,setIsLiked]=useState(false);
   //@ts-ignore
   const [blog,setBlog]=useState([...context?.blog]);
   const [skip, setSkip] = useState(4);
@@ -46,34 +41,14 @@ function Blogs() {
   useEffect(() => {
     if (inView && hasMore)  fetchPosts();
   }, [inView]);
+  
 
-  const saveBlog=(postId:number)=>{
-    const token=localStorage.getItem("token")
-    axios.put(`${API_url}/user/saveblog`,{postId},{
-      headers:{
-        Authorization:`Bearer ${token}`
-      }
-    }).catch(e=>{
-      console.log(e)
-    })
-  }
-
-  const unSaveblog=(postId:number)=>{
-    const token=localStorage.getItem("token")
-    axios.delete(`${API_url}/user/unsaveblog/${postId}`,{
-      headers:{
-        Authorization:`Bearer ${token}`
-      }
-    }).catch(e=>{
-      console.log(e)
-    })
-  }
-
+ 
 
 
   return (
     
-    <div className=" px-8 mt-2 sm:px-20 sm:mt-6 md:px-[120px] md:mt-7 lg:px-[200px] lg:mt-7 mb-20 ">
+    <div className=" px-8 mt-2 sm:px-20 sm:mt-6 md:px-[120px] md:mt-7 lg:px-[200px] lg:mt-7 mb-25 ">
       {blog?.map((item:item)=>{
         return(
         <div className="border-b mt-2" key={item.id}>
@@ -87,33 +62,10 @@ function Blogs() {
         {/* like count */}
 
         <div className="flex justify-between items-center mt-1">
-        <div className="flex gap-1 items-center mb-2 mt-1">
-        {isLiked ? <FaHeart className={`text-xl  text-red-500 duration-200 md:text-2xl`} onClick={()=>{
-          setIsLiked(prev=>!prev);
-        }}/>:<CiHeart className="text-xl duration-200 md:text-2xl" onClick={()=>{
-          setIsLiked(prev=>!prev);
-        }}/>}<span>{isLiked ? item.likeCount+1 : item.likeCount}</span></div>
-
+          <LikeComponent item={item}/>
         {/* Saved */}
 
-        <div
-          className="w-fit hover:cursor-pointer"
-          key={item.id}
-          onClick={() => {
-            if(!item?.savedBy?.some(x => x.postId === item.id && x.userId===context?.user.id)){
-              saveBlog(item.id);
-            }else{
-              unSaveblog(item.id);
-            }
-            }}
-        >
-          {item?.savedBy?.some(x => (x.postId === item.id && x.userId ===context?.user.id )) ? (
-            <FaBookmark className="text-xl mr-5 md:text-2xl z-10 relative" />
-          ) : (
-            <CiBookmark className="text-xl mr-5 md:text-2xl" />
-          )}
-        </div>
-
+        <SavedBlog item={item}/>
         </div>
       </div>
         )

@@ -21,10 +21,15 @@ export  type item={
   createdAt  :string,     
   updatedAt  :string,
   author:Author,
-  savedBy:SavedBy[]    
+  savedBy:SavedBy[],
+  likedBy:LikedBy[]    
   }
 
   type SavedBy={
+    postId:number,
+    userId:number
+  }
+   type LikedBy={
     postId:number,
     userId:number
   }
@@ -42,7 +47,7 @@ export  type item={
     userId:number,
     postId:number
   }
-  type SavedPosts={
+  export type SavedPosts={
     userId:number,
     postId:number,
   }

@@ -118,7 +118,7 @@ userRouter.use("/user/*",async(c,next)=>{
   }
 })
 
-userRouter.put("/user/saveblog", async (c) => {
+userRouter.post("/user/saveblog", async (c) => {
   const prisma = new PrismaClient({
     datasourceUrl: c.env?.DATABASE_URL,
   }).$extends(withAccelerate());
@@ -133,12 +133,9 @@ userRouter.put("/user/saveblog", async (c) => {
         postId: body.postId,
       },
     });
-
-    console.log(response);
      c.status(201)
      return c.json({ message: "Saved" });
   } catch (e) {
-    console.error("Save failed:", e);
      c.status(400)
      return c.json({ message: "Error saving post", error: e });
   }
@@ -167,6 +164,53 @@ userRouter.delete("/user/unsaveblog/:postId",async(c)=>{
     return c.json({message:"Internal Error"})
   }
 })
+
+userRouter.delete("/user/unlikeblog/:postId",async(c)=>{
+  const prisma = new PrismaClient({
+		datasourceUrl: c.env?.DATABASE_URL	,
+	}).$extends(withAccelerate());
+  const id=Number(c.get("userId"));
+  const postId=Number(c.req.param("postId"))
+  try{
+    const response=await prisma.likedPost.delete({
+      where:{
+        userId_postId:{
+          userId:id,
+          postId:postId,
+        }
+      }
+    })
+    c.status(201)
+    return c.json({message:"UnSaved"})
+  }catch(e){
+    c.status(401)
+    return c.json({message:"Internal Error"})
+  }
+})
+
+userRouter.post("/user/likeblog", async (c) => {
+  const prisma = new PrismaClient({
+    datasourceUrl: c.env?.DATABASE_URL,
+  }).$extends(withAccelerate());
+
+  const id = Number(c.get("userId")); // Ensure "userId" is set in the context
+  const body = await c.req.json(); // Should contain postId
+
+  try {
+    const response = await prisma.likedPost.create({
+      data: {
+        userId: id,
+        postId: body.postId,
+      },
+    });
+
+     c.status(201)
+     return c.json({ message: "Saved" });
+  } catch (e) {
+     c.status(400)
+     return c.json({ message: "Error saving post", error: e });
+  }
+});
 
 userRouter.get("/user/profile",async (c)=>{
   const prisma = new PrismaClient({

@@ -86,7 +86,7 @@ function DrafedBlogs() {
         <div className="text-xl font-bold flex justify-end px-4 md:text-2xl">{data?.length>=1 && `(${data?.length})`}</div>
         {data?.length >=1 ? data?.map((item:item)=>{
           return (
-            <div className="border-b mt-3">
+            <div className="border-b mt-3" key={item.id}>
             <h1 className="font-semibold text-xl md:text-2xl lg:text-3xl capitalize">{item.title}</h1>
             <p className="md:text-xl text-lg lg:text-xl">{item.content}</p>
             <div className="w-full flex items-center justify-between pr-2 mt-2 lg:pr-3 mb-1 ">

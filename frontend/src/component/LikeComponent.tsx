@@ -74,7 +74,7 @@ function LikeComponent({item}:{item:item}) {
 
   return (
     <div className="flex gap-1 items-center mb-2 mt-1 ml-1">
-        {((blogDetails?.likedBy?.some(x=>x.postId === item.id && x.userId===context?.user.id)) || hasPostId===item.id )? <FaHeart className={`text-xl  text-gray-500 duration-200 md:text-xl`} onClick={()=>{
+        {((blogDetails?.likedBy?.some(x=>x.postId === item.id && x.userId===context?.user.id)) || hasPostId===item.id )? <FaHeart className={`text-xl  text-red-500 duration-200 md:text-xl`} onClick={()=>{
             unlikeBlog(item.id)
         }}/>:<CiHeart className="text-xl duration-200 md:text-2xl" onClick={()=>{
             likeBlog(item.id);

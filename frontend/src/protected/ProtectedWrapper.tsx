@@ -66,7 +66,7 @@ function ProtectedWrapper({ children }: Dashboard) {
         setLoading(false)
         console.log(e);
       })
-  }, [token]);
+  }, [token,navigate]);
 
   // 🛑 Show nothing or a loader while verifying
   if (loading) return <Loader/>;

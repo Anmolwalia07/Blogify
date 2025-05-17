@@ -1,4 +1,4 @@
-import { BrowserRouter, Route, Routes, useLocation } from "react-router"
+import { BrowserRouter, Route, Routes } from "react-router"
 import Signup from "./pages/Signup"
 import Login from "./pages/Login"
 import Home from "./pages/Home"
@@ -11,8 +11,6 @@ import DrafedBlogs from "./pages/DrafedBlogs"
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
 import Profile from "./pages/Profile"
 import MyPosts from "./component/MyPosts"
-import MyLikedPosts from "./component/MyLikedPosts"
-import MySavedPosts from "./component/MySavedPosts"
 import EditProfile from "./component/EditProfile"
 
 export  type item={

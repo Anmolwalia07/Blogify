@@ -8,7 +8,7 @@ import { colorMap } from "../App";
 
 function ProfileMain() {
     const navigation=useNavigate();
-    const context=useContext(UserContext)
+    const context=useContext(UserContext);
   return (
     <>
     <div className="flex  items-center py-4 shadow-md text-xl font-bold px-4 overflow-hidden ">
@@ -29,7 +29,11 @@ function ProfileMain() {
             <h1 className="mt-2  md:mt-[5px] text-lg md:text-2xl font-semibold">{context?.user.name}</h1>
             <h1 className="mt-[-8px] w-45 sm:w-auto overflow-hidden text-sm text-gray-500 " >{context?.user.email}</h1>
         </div>
-        <button className="border p-1 rounded flex justify-center items-center text-xs gap-0.5 mb-2 sm:mb-6 font-semibold"><MdOutlineModeEdit className="mt-0.5"/>Edit</button>
+        <button
+        onClick={()=>{
+            navigation("/editProfile")
+        }}
+        className="border p-1 rounded flex justify-center items-center text-xs gap-0.5 mb-2 sm:mb-6 font-semibold"><MdOutlineModeEdit className="mt-0.5"/>Edit</button>
     </div>
     
         <div className="flex lg:w-[80%] lg:mt-5 justify-evenly h-15 gap-6 mt-[-5px] w-full pt-1.5 border-t border-gray-500 border-b mb-1 sm:mt-2 ">
@@ -48,7 +52,7 @@ function ProfileMain() {
         </div>
 
         <div className="w-full lg:w-[80%]">
-            {context?.user.bio ? <div className="w-full h-32  mt-2 border-2 border-gray-700 rounded-xl text-lg capitalize py-3 overflow-hidden leading-tight">
+            {context?.user.bio ? <div className="w-full h-32  mt-2 border-2 border-gray-700 rounded-xl px-6 text-lg capitalize py-3 overflow-hidden leading-tight">
             {context?.user.bio}
         </div> :
         <div className="w-full h-32  mt-2 border-2 border-gray-700 rounded-xl px-6 text-lg capitalize py-3 overflow-hidden leading-tight">

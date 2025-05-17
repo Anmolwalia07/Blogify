@@ -5,6 +5,7 @@ import { withAccelerate } from '@prisma/extension-accelerate'
 import {signinInput , signupInput} from '@anmolwalia07/medium-common'
 
 
+
 export const userRouter=new Hono<
 {
     Bindings:{
@@ -244,6 +245,32 @@ userRouter.get("/user/profile",async (c)=>{
     return c.json({user:user})
   }
   catch(e){
+    return c.json({message:"Internal Error"})
+  }
+})
+
+userRouter.put("/user/updateProfile",async(c)=>{
+   const prisma = new PrismaClient({
+		datasourceUrl: c.env?.DATABASE_URL	,
+	}).$extends(withAccelerate());
+  const id=Number(c.get("userId"));
+  const body=await c.req.json()
+  try{
+    await prisma.user.update({
+    where:{
+      id:id
+    },
+    data:{
+      name:body.name,
+      bio:body.bio
+    }
+  })
+
+  c.status(201)
+  return c.json({message:"Updated Successfully"})
+  }
+  catch(e){
+    c.status(401)
     return c.json({message:"Internal Error"})
   }
 })

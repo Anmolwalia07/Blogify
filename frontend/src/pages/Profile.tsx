@@ -19,7 +19,6 @@ function Profile() {
         <div className="w-full lg:w-[60%] mt-2  sm:w-[70%] flex gap-3">
             <Outlet/>
         </div>
-        
     </div>
     <BottomBar/>
     </>

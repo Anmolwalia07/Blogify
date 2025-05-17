@@ -31,7 +31,7 @@ function LikeComponent({item}:{item:item}) {
             Authorization:`Bearer ${token}`
           }
         }).then(()=>{
-            setHavePostId(-1);
+            
         }).catch(e=>{
           console.log(e)
         })
@@ -41,7 +41,7 @@ function LikeComponent({item}:{item:item}) {
             Authorization:`Bearer ${token}`
           }
         }).then(()=>{
-            setHavePostId(-1);
+          setHavePostId(-1);
         }).catch(e=>{
           console.log(e)
         })
@@ -49,27 +49,27 @@ function LikeComponent({item}:{item:item}) {
       }
 
       const likeBlog=(postId:number)=>{
+        // setHavePostId(item.id);
         const token=localStorage.getItem("token");
         axios.post(`${API_url}/user/likeblog`,{postId},{
           headers:{
             Authorization:`Bearer ${token}`
           }
         }).then(()=>{
-            setHavePostId(item.id);
         }).catch(e=>{
           console.log(e)
         })
-
+        
         axios.put(`${API_url}/blog/updateLikeCount/${postId}`,{likeCount:blogDetails.likeCount+1},{
           headers:{
             Authorization:`Bearer ${token}`
           }
         }).then(()=>{
-            setHavePostId(item.id);
+            
         }).catch(e=>{
           console.log(e)
         })
-        
+        setHavePostId(item.id);
       }
 
   return (

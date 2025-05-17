@@ -13,6 +13,7 @@ import Profile from "./pages/Profile"
 import MyPosts from "./component/MyPosts"
 import MyLikedPosts from "./component/MyLikedPosts"
 import MySavedPosts from "./component/MySavedPosts"
+import EditProfile from "./component/EditProfile"
 
 export  type item={
   id :number,     
@@ -88,7 +89,9 @@ function App() {
         <Route path="liked" element={<MyLikedPosts />} />
         <Route path="saved" element={<MySavedPosts />} />
       </Route>
+      <Route path='/editProfile' element={<ProtectedWrapper><EditProfile/></ProtectedWrapper>}/>
     </Routes>
+
     </BrowserRouter>
     </QueryClientProvider>
   )

@@ -52,11 +52,11 @@ function DrafedBlogs() {
       if(response.data){
         setLoading(false);
         setFeedback({type:"success",message:response?.data.message});
-        setId(1)
+        setId(-1)
       }
     }catch(e){
       setLoading(false)
-      setId(1)
+      setId(-1)
       //@ts-ignore
       setFeedback({type:"error",message:e.response.data.message})
     }

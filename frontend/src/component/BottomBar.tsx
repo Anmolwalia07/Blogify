@@ -20,7 +20,7 @@ function BottomBar() {
           key={item.to}
           to={item.to}
           className={`flex flex-col items-center text-sm ${
-            location.pathname === item.to ||( location.pathname=="/following" && item.label=="Home") || ( location.pathname=="/profile/liked" && item.label=="Profile") || ( location.pathname=="/profile/saved" && item.label=="Profile") || ( location.pathname=="/profile/mypost" && item.label=="Profile") ? "text-black font-semibold mt-[-5px] " : "text-gray-500"
+            location.pathname === item.to ||( location.pathname=="/following" && item.label=="Home") ? "text-black font-semibold mt-[-5px] " : "text-gray-500"
           }`}
         >
           {item.icon}

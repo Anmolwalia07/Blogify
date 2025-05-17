@@ -7,7 +7,7 @@ interface DeleteBlogModalProps {
 
 const DeleteBlogModal: React.FC<DeleteBlogModalProps> = ({ onClose, handleDelete }) => {
   return (
-    <div className="fixed inset-0  flex justify-center items-center z-50 backdrop-blur-sm">
+    <div className="fixed inset-0  flex justify-center items-center z-50 backdrop-blur-sm px-5">
       <div className="bg-white rounded-2xl p-6 max-w-sm w-full shadow-lg">
         <h2 className="text-lg font-semibold text-gray-800 mb-4">
           Do you want to delete this blog?

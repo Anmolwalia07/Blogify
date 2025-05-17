@@ -114,6 +114,46 @@ blogRouter.get('/bulk', async (c) => {
 	return c.json({posts:posts});
 })
 
+blogRouter.get('/myblogs', async (c) => {
+	const prisma = new PrismaClient({
+		datasourceUrl: c.env?.DATABASE_URL	,
+	}).$extends(withAccelerate());
+    const id= Number(c.get('userId'))
+    const skip = parseInt(c.req.query('skip') || '0');
+    const take = parseInt(c.req.query('take') || '4');
+	const posts = await prisma.post.findMany({
+        skip,
+        take,
+        orderBy:{createdAt:'desc'},
+        where:{
+            published:true,
+            authorId:id
+        },
+       include:{
+            author:{
+                select:{
+                    name:true,
+                    id:true,
+                    picture:true
+                }
+            },
+            savedBy:{
+                select:{
+                    postId:true,
+                    userId:true,
+                }
+            },
+            likedBy:{
+                select:{
+                    postId:true,
+                    userId:true
+                }
+            }
+        }
+    });
+
+	return c.json({posts:posts});
+})
 
 blogRouter.get('/drafted/count',async(c)=>{
     const prisma = new PrismaClient({
@@ -289,10 +329,24 @@ blogRouter.put("/drafted-to-publish",async(c)=>{
 blogRouter.delete('/delete/:id',async(c)=>{
     const userId = c.get('userId');
     const id=Number(c.req.param("id"))
+    console.log(id)
+    console.log(userId)
 	const prisma = new PrismaClient({
 		datasourceUrl: c.env?.DATABASE_URL	,
 	}).$extends(withAccelerate()); 
     try{
+        if(prisma.post.fields.published){
+            await prisma.savedPost.deleteMany({
+                where:{
+                    postId:id,
+                }
+            })
+            await prisma.likedPost.deleteMany({
+                where:{
+                    postId:id
+                }
+            })
+        }
         await prisma.post.delete({
             where: {
                 id: id,
@@ -303,6 +357,7 @@ blogRouter.delete('/delete/:id',async(c)=>{
         return c.json({message:'Blog Deleted'});
     }catch(e){
         c.status(400)
+        console.log(e)
         return c.json({error:"error"})
     }
 })

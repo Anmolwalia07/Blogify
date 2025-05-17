@@ -2,6 +2,8 @@ import { useContext } from "react";
 import { IoArrowBackSharp } from "react-icons/io5"
 import { useNavigate } from "react-router"
 import { MdOutlineModeEdit } from "react-icons/md";
+import { IoSettingsSharp } from "react-icons/io5";
+
 
 import { UserContext } from "../context/UserContext";
 import { colorMap } from "../App";
@@ -11,18 +13,19 @@ function ProfileMain() {
     const context=useContext(UserContext);
   return (
     <>
-    <div className="flex  items-center py-4 shadow-md text-xl font-bold px-4 overflow-hidden ">
+    <div className="flex  items-center py-4 shadow-md text-xl font-bold px-5  overflow-hidden ">
           <IoArrowBackSharp
           onClick={()=>{
             navigation('/')
           }}
           className="text-2xl z-5"/>
-          <div className="w-full flex justify-center ml-[-32px] tracking-wider "><h1>Profile</h1></div>
+          <div className="w-full flex justify-center tracking-wider "><h1>Profile</h1></div>
+          <IoSettingsSharp className="mt-1 text-2xl ml-1"/>
     </div>
     
     <div className="flex flex-col items-center w-full px-4 overflow-hidden sm:px-10 md:mt-7 md:px-[120px] lg:px-[200px]">
         <div className=" h-30  flex  items-center px-2 gap-3 sm:gap-6 rounded  w-full sm:px-4 justify-center md:pl-[-100px] lg:pr-[150px]">
-        <div className={`w-15 h-15 sm:w-25 sm:h-25 lg:w-30 lg:h-30 rounded-full ${colorMap[context?.user?.picture || 0]} flex justify-center items-center text-white font-medium text-2xl`} >
+        <div className={`w-15 h-15 sm:w-25 sm:h-25 lg:w-30 lg:h-30 rounded-full ${colorMap[context?.user?.picture || 0]} flex justify-center items-center text-white font-medium text-2xl md:text-4xl lg:text-5xl`} >
             {context?.user.name.charAt(0)}
         </div>
         <div>
@@ -37,17 +40,17 @@ function ProfileMain() {
     </div>
     
         <div className="flex lg:w-[80%] lg:mt-5 justify-evenly h-15 gap-6 mt-[-5px] w-full pt-1.5 border-t border-gray-500 border-b mb-1 sm:mt-2 ">
-            <div>
+            <div className="flex flex-col items-center">
                 <h1 className="text-lg font-semibold">{context?.user.posts.length}</h1>
                 <h1 className="font-bold text-gray-600 tracking-wider mt-[-5px] uppercase text-sm">Posts</h1>
             </div>
-            <div>
-                <h1 className="text-lg font-semibold">{context?.user.likedPosts.length}</h1>
-                <h1 className="font-bold text-gray-600 tracking-wider mt-[-5px] uppercase text-sm">Liked</h1>
+            <div className="flex flex-col items-center">
+                <h1 className="text-lg font-semibold">50</h1>
+                <h1 className="font-bold text-gray-600 tracking-wider mt-[-5px] uppercase text-sm">Followers</h1>
             </div>
-            <div>
-                 <h1 className="text-lg font-semibold">{context?.user.savedPosts.length}</h1>
-                <h1 className="font-bold text-gray-600 tracking-wider mt-[-5px] uppercase text-sm">Saved</h1>
+            <div className="flex flex-col items-center">
+                 <h1 className="text-lg font-semibold">20</h1>
+                <h1 className="font-bold text-gray-600 tracking-wider mt-[-5px] uppercase text-sm">Following</h1>
             </div>
         </div>
 

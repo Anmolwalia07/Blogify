@@ -262,7 +262,8 @@ userRouter.put("/user/updateProfile",async(c)=>{
     },
     data:{
       name:body.name,
-      bio:body.bio
+      bio:body.bio,
+      picture:body.picture,
     }
   })
 

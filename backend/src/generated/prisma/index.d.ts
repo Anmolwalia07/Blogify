@@ -1357,6 +1357,8 @@ export namespace Prisma {
     password: string | null
     picture: string | null
     bio: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
   }
 
   export type UserMaxAggregateOutputType = {
@@ -1366,6 +1368,8 @@ export namespace Prisma {
     password: string | null
     picture: string | null
     bio: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
   }
 
   export type UserCountAggregateOutputType = {
@@ -1375,6 +1379,8 @@ export namespace Prisma {
     password: number
     picture: number
     bio: number
+    createdAt: number
+    updatedAt: number
     _all: number
   }
 
@@ -1394,6 +1400,8 @@ export namespace Prisma {
     password?: true
     picture?: true
     bio?: true
+    createdAt?: true
+    updatedAt?: true
   }
 
   export type UserMaxAggregateInputType = {
@@ -1403,6 +1411,8 @@ export namespace Prisma {
     password?: true
     picture?: true
     bio?: true
+    createdAt?: true
+    updatedAt?: true
   }
 
   export type UserCountAggregateInputType = {
@@ -1412,6 +1422,8 @@ export namespace Prisma {
     password?: true
     picture?: true
     bio?: true
+    createdAt?: true
+    updatedAt?: true
     _all?: true
   }
 
@@ -1508,6 +1520,8 @@ export namespace Prisma {
     password: string
     picture: string
     bio: string
+    createdAt: Date
+    updatedAt: Date
     _count: UserCountAggregateOutputType | null
     _avg: UserAvgAggregateOutputType | null
     _sum: UserSumAggregateOutputType | null
@@ -1536,6 +1550,8 @@ export namespace Prisma {
     password?: boolean
     picture?: boolean
     bio?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
     posts?: boolean | User$postsArgs<ExtArgs>
     savedPosts?: boolean | User$savedPostsArgs<ExtArgs>
     likedPosts?: boolean | User$likedPostsArgs<ExtArgs>
@@ -1550,6 +1566,8 @@ export namespace Prisma {
     password?: boolean
     picture?: boolean
     bio?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
   }, ExtArgs["result"]["user"]>
 
   export type UserSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -1559,6 +1577,8 @@ export namespace Prisma {
     password?: boolean
     picture?: boolean
     bio?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
   }, ExtArgs["result"]["user"]>
 
   export type UserSelectScalar = {
@@ -1568,9 +1588,11 @@ export namespace Prisma {
     password?: boolean
     picture?: boolean
     bio?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
   }
 
-  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "email" | "name" | "password" | "picture" | "bio", ExtArgs["result"]["user"]>
+  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "email" | "name" | "password" | "picture" | "bio" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     posts?: boolean | User$postsArgs<ExtArgs>
     savedPosts?: boolean | User$savedPostsArgs<ExtArgs>
@@ -1596,6 +1618,8 @@ export namespace Prisma {
       password: string
       picture: string
       bio: string
+      createdAt: Date
+      updatedAt: Date
     }, ExtArgs["result"]["user"]>
     composites: {}
   }
@@ -2029,6 +2053,8 @@ export namespace Prisma {
     readonly password: FieldRef<"User", 'String'>
     readonly picture: FieldRef<"User", 'String'>
     readonly bio: FieldRef<"User", 'String'>
+    readonly createdAt: FieldRef<"User", 'DateTime'>
+    readonly updatedAt: FieldRef<"User", 'DateTime'>
   }
     
 
@@ -6974,7 +7000,9 @@ export namespace Prisma {
     name: 'name',
     password: 'password',
     picture: 'picture',
-    bio: 'bio'
+    bio: 'bio',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
   };
 
   export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
@@ -7071,13 +7099,6 @@ export namespace Prisma {
 
 
   /**
-   * Reference to a field of type 'Boolean'
-   */
-  export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
-    
-
-
-  /**
    * Reference to a field of type 'DateTime'
    */
   export type DateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime'>
@@ -7088,6 +7109,13 @@ export namespace Prisma {
    * Reference to a field of type 'DateTime[]'
    */
   export type ListDateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'Boolean'
+   */
+  export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
     
 
 
@@ -7118,6 +7146,8 @@ export namespace Prisma {
     password?: StringFilter<"User"> | string
     picture?: StringFilter<"User"> | string
     bio?: StringFilter<"User"> | string
+    createdAt?: DateTimeFilter<"User"> | Date | string
+    updatedAt?: DateTimeFilter<"User"> | Date | string
     posts?: PostListRelationFilter
     savedPosts?: SavedPostListRelationFilter
     likedPosts?: LikedPostListRelationFilter
@@ -7131,6 +7161,8 @@ export namespace Prisma {
     password?: SortOrder
     picture?: SortOrder
     bio?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
     posts?: PostOrderByRelationAggregateInput
     savedPosts?: SavedPostOrderByRelationAggregateInput
     likedPosts?: LikedPostOrderByRelationAggregateInput
@@ -7147,6 +7179,8 @@ export namespace Prisma {
     password?: StringFilter<"User"> | string
     picture?: StringFilter<"User"> | string
     bio?: StringFilter<"User"> | string
+    createdAt?: DateTimeFilter<"User"> | Date | string
+    updatedAt?: DateTimeFilter<"User"> | Date | string
     posts?: PostListRelationFilter
     savedPosts?: SavedPostListRelationFilter
     likedPosts?: LikedPostListRelationFilter
@@ -7160,6 +7194,8 @@ export namespace Prisma {
     password?: SortOrder
     picture?: SortOrder
     bio?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
     _count?: UserCountOrderByAggregateInput
     _avg?: UserAvgOrderByAggregateInput
     _max?: UserMaxOrderByAggregateInput
@@ -7177,6 +7213,8 @@ export namespace Prisma {
     password?: StringWithAggregatesFilter<"User"> | string
     picture?: StringWithAggregatesFilter<"User"> | string
     bio?: StringWithAggregatesFilter<"User"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
   }
 
   export type PostWhereInput = {
@@ -7413,6 +7451,8 @@ export namespace Prisma {
     password: string
     picture?: string
     bio?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
     posts?: PostCreateNestedManyWithoutAuthorInput
     savedPosts?: SavedPostCreateNestedManyWithoutUserInput
     likedPosts?: LikedPostCreateNestedManyWithoutUserInput
@@ -7426,6 +7466,8 @@ export namespace Prisma {
     password: string
     picture?: string
     bio?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
     posts?: PostUncheckedCreateNestedManyWithoutAuthorInput
     savedPosts?: SavedPostUncheckedCreateNestedManyWithoutUserInput
     likedPosts?: LikedPostUncheckedCreateNestedManyWithoutUserInput
@@ -7438,6 +7480,8 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     picture?: StringFieldUpdateOperationsInput | string
     bio?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     posts?: PostUpdateManyWithoutAuthorNestedInput
     savedPosts?: SavedPostUpdateManyWithoutUserNestedInput
     likedPosts?: LikedPostUpdateManyWithoutUserNestedInput
@@ -7451,6 +7495,8 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     picture?: StringFieldUpdateOperationsInput | string
     bio?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     posts?: PostUncheckedUpdateManyWithoutAuthorNestedInput
     savedPosts?: SavedPostUncheckedUpdateManyWithoutUserNestedInput
     likedPosts?: LikedPostUncheckedUpdateManyWithoutUserNestedInput
@@ -7464,6 +7510,8 @@ export namespace Prisma {
     password: string
     picture?: string
     bio?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
   }
 
   export type UserUpdateManyMutationInput = {
@@ -7472,6 +7520,8 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     picture?: StringFieldUpdateOperationsInput | string
     bio?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type UserUncheckedUpdateManyInput = {
@@ -7481,6 +7531,8 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     picture?: StringFieldUpdateOperationsInput | string
     bio?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type PostCreateInput = {
@@ -7711,6 +7763,17 @@ export namespace Prisma {
     not?: NestedStringFilter<$PrismaModel> | string
   }
 
+  export type DateTimeFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeFilter<$PrismaModel> | Date | string
+  }
+
   export type PostListRelationFilter = {
     every?: PostWhereInput
     some?: PostWhereInput
@@ -7758,6 +7821,8 @@ export namespace Prisma {
     password?: SortOrder
     picture?: SortOrder
     bio?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
   }
 
   export type UserAvgOrderByAggregateInput = {
@@ -7771,6 +7836,8 @@ export namespace Prisma {
     password?: SortOrder
     picture?: SortOrder
     bio?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
   }
 
   export type UserMinOrderByAggregateInput = {
@@ -7780,6 +7847,8 @@ export namespace Prisma {
     password?: SortOrder
     picture?: SortOrder
     bio?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
   }
 
   export type UserSumOrderByAggregateInput = {
@@ -7820,12 +7889,7 @@ export namespace Prisma {
     _max?: NestedStringFilter<$PrismaModel>
   }
 
-  export type BoolFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolFilter<$PrismaModel> | boolean
-  }
-
-  export type DateTimeFilter<$PrismaModel = never> = {
+  export type DateTimeWithAggregatesFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
     notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
@@ -7833,7 +7897,15 @@ export namespace Prisma {
     lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeFilter<$PrismaModel> | Date | string
+    not?: NestedDateTimeWithAggregatesFilter<$PrismaModel> | Date | string
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedDateTimeFilter<$PrismaModel>
+    _max?: NestedDateTimeFilter<$PrismaModel>
+  }
+
+  export type BoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
   }
 
   export type UserScalarRelationFilter = {
@@ -7897,20 +7969,6 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedBoolFilter<$PrismaModel>
     _max?: NestedBoolFilter<$PrismaModel>
-  }
-
-  export type DateTimeWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeWithAggregatesFilter<$PrismaModel> | Date | string
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedDateTimeFilter<$PrismaModel>
-    _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
   export type FriendsSavedAtFriendIdCompoundUniqueInput = {
@@ -8072,6 +8130,10 @@ export namespace Prisma {
     set?: string
   }
 
+  export type DateTimeFieldUpdateOperationsInput = {
+    set?: Date | string
+  }
+
   export type PostUpdateManyWithoutAuthorNestedInput = {
     create?: XOR<PostCreateWithoutAuthorInput, PostUncheckedCreateWithoutAuthorInput> | PostCreateWithoutAuthorInput[] | PostUncheckedCreateWithoutAuthorInput[]
     connectOrCreate?: PostCreateOrConnectWithoutAuthorInput | PostCreateOrConnectWithoutAuthorInput[]
@@ -8228,10 +8290,6 @@ export namespace Prisma {
 
   export type BoolFieldUpdateOperationsInput = {
     set?: boolean
-  }
-
-  export type DateTimeFieldUpdateOperationsInput = {
-    set?: Date | string
   }
 
   export type UserUpdateOneRequiredWithoutPostsNestedInput = {
@@ -8393,6 +8451,17 @@ export namespace Prisma {
     not?: NestedStringFilter<$PrismaModel> | string
   }
 
+  export type NestedDateTimeFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeFilter<$PrismaModel> | Date | string
+  }
+
   export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel>
     in?: number[] | ListIntFieldRefInput<$PrismaModel>
@@ -8437,30 +8506,6 @@ export namespace Prisma {
     _max?: NestedStringFilter<$PrismaModel>
   }
 
-  export type NestedBoolFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolFilter<$PrismaModel> | boolean
-  }
-
-  export type NestedDateTimeFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeFilter<$PrismaModel> | Date | string
-  }
-
-  export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedBoolFilter<$PrismaModel>
-    _max?: NestedBoolFilter<$PrismaModel>
-  }
-
   export type NestedDateTimeWithAggregatesFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
@@ -8473,6 +8518,19 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedDateTimeFilter<$PrismaModel>
     _max?: NestedDateTimeFilter<$PrismaModel>
+  }
+
+  export type NestedBoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
+  }
+
+  export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedBoolFilter<$PrismaModel>
+    _max?: NestedBoolFilter<$PrismaModel>
   }
 
   export type PostCreateWithoutAuthorInput = {
@@ -8679,6 +8737,8 @@ export namespace Prisma {
     password: string
     picture?: string
     bio?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
     savedPosts?: SavedPostCreateNestedManyWithoutUserInput
     likedPosts?: LikedPostCreateNestedManyWithoutUserInput
     friends?: FriendsCreateNestedManyWithoutFriendInput
@@ -8691,6 +8751,8 @@ export namespace Prisma {
     password: string
     picture?: string
     bio?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
     savedPosts?: SavedPostUncheckedCreateNestedManyWithoutUserInput
     likedPosts?: LikedPostUncheckedCreateNestedManyWithoutUserInput
     friends?: FriendsUncheckedCreateNestedManyWithoutFriendInput
@@ -8758,6 +8820,8 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     picture?: StringFieldUpdateOperationsInput | string
     bio?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     savedPosts?: SavedPostUpdateManyWithoutUserNestedInput
     likedPosts?: LikedPostUpdateManyWithoutUserNestedInput
     friends?: FriendsUpdateManyWithoutFriendNestedInput
@@ -8770,6 +8834,8 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     picture?: StringFieldUpdateOperationsInput | string
     bio?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     savedPosts?: SavedPostUncheckedUpdateManyWithoutUserNestedInput
     likedPosts?: LikedPostUncheckedUpdateManyWithoutUserNestedInput
     friends?: FriendsUncheckedUpdateManyWithoutFriendNestedInput
@@ -8813,6 +8879,8 @@ export namespace Prisma {
     password: string
     picture?: string
     bio?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
     posts?: PostCreateNestedManyWithoutAuthorInput
     savedPosts?: SavedPostCreateNestedManyWithoutUserInput
     likedPosts?: LikedPostCreateNestedManyWithoutUserInput
@@ -8825,6 +8893,8 @@ export namespace Prisma {
     password: string
     picture?: string
     bio?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
     posts?: PostUncheckedCreateNestedManyWithoutAuthorInput
     savedPosts?: SavedPostUncheckedCreateNestedManyWithoutUserInput
     likedPosts?: LikedPostUncheckedCreateNestedManyWithoutUserInput
@@ -8852,6 +8922,8 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     picture?: StringFieldUpdateOperationsInput | string
     bio?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     posts?: PostUpdateManyWithoutAuthorNestedInput
     savedPosts?: SavedPostUpdateManyWithoutUserNestedInput
     likedPosts?: LikedPostUpdateManyWithoutUserNestedInput
@@ -8864,6 +8936,8 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     picture?: StringFieldUpdateOperationsInput | string
     bio?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     posts?: PostUncheckedUpdateManyWithoutAuthorNestedInput
     savedPosts?: SavedPostUncheckedUpdateManyWithoutUserNestedInput
     likedPosts?: LikedPostUncheckedUpdateManyWithoutUserNestedInput
@@ -8875,6 +8949,8 @@ export namespace Prisma {
     password: string
     picture?: string
     bio?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
     posts?: PostCreateNestedManyWithoutAuthorInput
     likedPosts?: LikedPostCreateNestedManyWithoutUserInput
     friends?: FriendsCreateNestedManyWithoutFriendInput
@@ -8887,6 +8963,8 @@ export namespace Prisma {
     password: string
     picture?: string
     bio?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
     posts?: PostUncheckedCreateNestedManyWithoutAuthorInput
     likedPosts?: LikedPostUncheckedCreateNestedManyWithoutUserInput
     friends?: FriendsUncheckedCreateNestedManyWithoutFriendInput
@@ -8944,6 +9022,8 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     picture?: StringFieldUpdateOperationsInput | string
     bio?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     posts?: PostUpdateManyWithoutAuthorNestedInput
     likedPosts?: LikedPostUpdateManyWithoutUserNestedInput
     friends?: FriendsUpdateManyWithoutFriendNestedInput
@@ -8956,6 +9036,8 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     picture?: StringFieldUpdateOperationsInput | string
     bio?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     posts?: PostUncheckedUpdateManyWithoutAuthorNestedInput
     likedPosts?: LikedPostUncheckedUpdateManyWithoutUserNestedInput
     friends?: FriendsUncheckedUpdateManyWithoutFriendNestedInput
@@ -9003,6 +9085,8 @@ export namespace Prisma {
     password: string
     picture?: string
     bio?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
     posts?: PostCreateNestedManyWithoutAuthorInput
     savedPosts?: SavedPostCreateNestedManyWithoutUserInput
     friends?: FriendsCreateNestedManyWithoutFriendInput
@@ -9015,6 +9099,8 @@ export namespace Prisma {
     password: string
     picture?: string
     bio?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
     posts?: PostUncheckedCreateNestedManyWithoutAuthorInput
     savedPosts?: SavedPostUncheckedCreateNestedManyWithoutUserInput
     friends?: FriendsUncheckedCreateNestedManyWithoutFriendInput
@@ -9072,6 +9158,8 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     picture?: StringFieldUpdateOperationsInput | string
     bio?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     posts?: PostUpdateManyWithoutAuthorNestedInput
     savedPosts?: SavedPostUpdateManyWithoutUserNestedInput
     friends?: FriendsUpdateManyWithoutFriendNestedInput
@@ -9084,6 +9172,8 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     picture?: StringFieldUpdateOperationsInput | string
     bio?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     posts?: PostUncheckedUpdateManyWithoutAuthorNestedInput
     savedPosts?: SavedPostUncheckedUpdateManyWithoutUserNestedInput
     friends?: FriendsUncheckedUpdateManyWithoutFriendNestedInput

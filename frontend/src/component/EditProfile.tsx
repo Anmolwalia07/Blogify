@@ -13,7 +13,7 @@ function EditProfile() {
   const context=useContext(UserContext);
   const navigation=useNavigate();
 
-  const [formData, setFormData] = useState({name:context?.user.name, bio:context?.user.bio})
+  const [formData, setFormData] = useState({name:context?.user?.name, bio:context?.user?.bio , picture:context?.user.picture})
   const [feedback, setFeedback] = useState<{type: 'success' | 'error', message: string} | null>(null);
 
   const [loading, setLoading] = useState(false)
@@ -50,14 +50,38 @@ function EditProfile() {
                 <div className="w-full flex justify-center ml-[-29px] tracking-wider "><h1>Edit Profile</h1></div>
           </div>
 
-          <div className="flex flex-col items-center px-8">
-            <div className={`${colorMap[context?.user.picture || 0]} ml-[-29px] w-20 h-20 mt-8 text-white flex justify-center text-4xl pb-2 items-center font-semibold rounded-full`}>{context?.user.name.charAt(0)}</div>   
+          
+          <div className="flex flex-col items-center  w-full  ">
+            <div className="w-full md:w-[50%] flex flex-col items-center ">
+              <div className={`${colorMap[formData?.picture || 0]} ml-[-29px] w-20 h-20 mt-8 text-white flex justify-center text-4xl pb-2 items-center font-semibold rounded-full`}>{context?.user.name.charAt(0)}</div>   
 
-            <form onSubmit={handleSubmit} className="flex flex-col mt-5 w-full h-auto gap-1 relative" >
+             <div className="mt-2 flex gap-1 ml-[-10px]">
+              <div onClick={()=>{
+                setFormData({...formData,picture:"blue"})
+              }} className="bg-blue-500  w-10 h-10 rounded-full"></div>
+              <div onClick={()=>{
+                setFormData({...formData,picture:"green"})
+              }} className="bg-green-500  w-10 h-10 rounded-full"></div>
+              <div onClick={()=>{
+                setFormData({...formData,picture:"red"})
+              }} className="bg-red-500  w-10 h-10 rounded-full"></div>
+              <div onClick={()=>{
+                setFormData({...formData,picture:"orange"})
+              }} className="bg-orange-500  w-10 h-10 rounded-full"></div>
+              <div onClick={()=>{
+                setFormData({...formData,picture:"pink"})
+              }} className="bg-pink-500  w-10 h-10 rounded-full"></div>
+              <div onClick={()=>{
+                setFormData({...formData,picture:"yellow"})
+              }} className="bg-yellow-500  w-10 h-10 rounded-full"></div>
+
+              </div>   
+
+            <form onSubmit={handleSubmit} className="flex flex-col mt-5 w-full  gap-1 px-8 " >
               <label className="uppercase text-md font-medium ">Name</label>
               <input type="text" onChange={(e)=>{
                 setFormData({...formData,name:e.target.value})
-              }} value={formData.name} className=" py-2 px-3 rounded-xl bg-[#c5c3c3a0] border-gray-600"></input>
+              }} value={formData?.name} className=" py-2 px-3 rounded-xl bg-[#c5c3c3a0] border-gray-600"></input>
 
               <label className="uppercase text-md font-medium mt-2">Email</label>
               <input type="text"  value={context?.user.email}
@@ -69,10 +93,11 @@ function EditProfile() {
               onChange={(e)=>{
                 setFormData({...formData,bio:e.target.value})
               }}
-              value={formData.bio} placeholder="Write you bio" className=" py-2 px-4 rounded-xl bg-[#c5c3c3a0] border-gray-600 h-25 "></textarea>
+              value={formData?.bio} placeholder="Write you bio" className=" py-2 px-4 rounded-xl bg-[#c5c3c3a0] border-gray-600 max-h-25 min-h-25"></textarea>
 
-              <button type="submit" className="bg-black p-3 text-white font-semibold rounded-xl  absolute w-full left-0 top-100">Save Changes</button>
+              <button type="submit" className="cursor-pointer bg-black p-3 text-white font-semibold rounded-xl mt-15">Save Changes</button> 
             </form> 
+            </div>
           </div>
     </>
   )

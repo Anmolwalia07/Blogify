@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useContext, useEffect, useState, type ReactNode } from "react";
-import { useLocation, useNavigate } from "react-router";
+import { useNavigate } from "react-router";
 import { API_url } from "../url";
 import { UserContext } from "../context/UserContext";
 import Loader from "../component/Loader";
@@ -9,12 +9,12 @@ interface Dashboard {
   children: ReactNode;
 }
 
-function ProtectedWrapper({ children }: Dashboard) {
+function ProfileWrapper({ children }: Dashboard) {
   const navigate = useNavigate();
   const token = localStorage.getItem("token");
   const context = useContext(UserContext);
   const [loading, setLoading] = useState(true); // 🟡 Add loading state
-   const location = useLocation();
+
   useEffect(() => {
     if (!token) {
       navigate("/login");
@@ -28,7 +28,7 @@ function ProtectedWrapper({ children }: Dashboard) {
       })
       .then((res) => {
         if (res.data?.user) {
-          console.log(res.data.user)
+        console.log(res.data.user);
           context?.setUser(res.data.user);
         } else {
           navigate("/login");
@@ -40,38 +40,12 @@ function ProtectedWrapper({ children }: Dashboard) {
         localStorage.removeItem("token")
         navigate("/login");
       });
+      setLoading(false)
+  }, [token,navigate]);
 
-      axios.get(`${API_url}/blog/bulk`,{
-        headers:{
-          Authorization:`Bearer ${token}`
-        }
-      }).then((res)=>{
-        if(res.data){
-          context?.setBlog(res.data.posts);
-        }
-      }).catch(e=>{
-        console.log(e);
-        setLoading(false);
-      })
-      axios.get(`${API_url}/blog/drafted/count`,{
-        headers:{
-            Authorization:`Bearer ${token}`
-        }
-      }).then((res)=>{
-        if(res.data){
-            context?.setDraftedCount(res.data.totalPost);
-            setLoading(false)
-        }
-      }).catch(e=>{
-        setLoading(false)
-        console.log(e);
-      })
-  }, [token,navigate,location.state]);
-
-  // 🛑 Show nothing or a loader while verifying
   if (loading) return <Loader/>;
 
   return <>{children}</>;
 }
 
-export default ProtectedWrapper;
+export default ProfileWrapper;

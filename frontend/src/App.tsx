@@ -1,4 +1,4 @@
-import { BrowserRouter, Route, Routes } from "react-router"
+import { BrowserRouter, Route, Routes, useLocation } from "react-router"
 import Signup from "./pages/Signup"
 import Login from "./pages/Login"
 import Home from "./pages/Home"
@@ -59,13 +59,12 @@ export  type item={
   }
 
   export const colorMap: Record<string, string> = {
-  blue: 'bg-blue-600',
-  yellow: 'bg-yellow-600',
-  red: 'bg-red-600',
-  green: 'bg-green-600',
-  amber: 'bg-amber-600',
-  orange:'bg-orange-600',
-  pink  : 'bg-pink-600'
+  blue: 'bg-blue-500',
+  yellow: 'bg-yellow-500',
+  red: 'bg-red-500',
+  green: 'bg-green-500',
+  orange:'bg-orange-500',
+  pink  : 'bg-pink-500'
   // add more as needed
 };
 function App() {
@@ -73,7 +72,7 @@ function App() {
   return (
     <QueryClientProvider client={queryClient}>
     <BrowserRouter>
-    <Routes>
+    <Routes >
       <Route path="/signup" element={<Signup/>}/>
       <Route path="/login" element={<Login/>}/>
       <Route path="/" element={<ProtectedWrapper><Home/></ProtectedWrapper>}>
@@ -84,12 +83,13 @@ function App() {
         <Route path="/post" element={<ProtectedWrapper> <ScrollToTop/><Post/></ProtectedWrapper>}/>
         <Route path="/blog/drafted" element={<ProtectedWrapper> <ScrollToTop/><DrafedBlogs/></ProtectedWrapper>}/>
 
-      <Route path="/profile" element={<ProtectedWrapper><Profile /></ProtectedWrapper>}>
+      <Route path="/profile"  element={<ProtectedWrapper><Profile /></ProtectedWrapper>}>
         <Route index path="/profile" element={<MyPosts />} />
-        <Route path="liked" element={<MyLikedPosts />} />
-        <Route path="saved" element={<MySavedPosts />} />
+        {/* <Route path="liked" element={<MyLikedPosts />} />
+        <Route path="saved" element={<MySavedPosts />} /> */}
       </Route>
       <Route path='/editProfile' element={<ProtectedWrapper><EditProfile/></ProtectedWrapper>}/>
+      <Route path="/profile/:id" element={<ProtectedWrapper>usuus</ProtectedWrapper>}/>
     </Routes>
 
     </BrowserRouter>

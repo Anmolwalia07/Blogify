@@ -65,11 +65,11 @@ function LikeComponent({item}:{item:item}) {
             Authorization:`Bearer ${token}`
           }
         }).then(()=>{
-            
+            setHavePostId(item.id);
         }).catch(e=>{
           console.log(e)
         })
-        setHavePostId(item.id);
+        
       }
 
   return (

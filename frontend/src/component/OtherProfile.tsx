@@ -1,6 +1,5 @@
 import { IoArrowBackSharp } from "react-icons/io5"
-import { useNavigate, useParams, useSearchParams } from "react-router"
-import { MdOutlineModeEdit } from "react-icons/md";
+import { useNavigate, useParams } from "react-router"
 import { colorMap } from "../App";
 import { useEffect, useState } from "react";
 import axios from "axios";

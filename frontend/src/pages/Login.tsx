@@ -23,11 +23,10 @@ function Login() {
         try{
             setLoading(true)
             const response=await axios.post(`${API_url}/login`,formData);
-            console.log(response.data);
             if(response.data){
-                setLoading(false)
                 localStorage.setItem("token",response.data.jwt);
                 setFeedback({type:"success",message:response.data.message})
+                setLoading(false)
                 navigate("/")
             }
         }catch(e){

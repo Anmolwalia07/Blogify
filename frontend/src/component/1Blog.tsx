@@ -11,6 +11,7 @@ import DeleteBlogModal from "./DeleteModal"
 import Loader from "./Loader"
 import axios from "axios"
 import { API_url } from "../url"
+import noblogs from "../assets/no blog.jpg"
 
 type Children={blog:any,hasMore:boolean,ref:any ,isProfilePost:boolean}
 
@@ -56,18 +57,18 @@ function Blog1({blog ,hasMore ,ref ,isProfilePost}:Children) {
       />}
       {feedback?.message && <FeedbackMessage type={feedback.type} message={feedback.message} onClose={()=>{setFeedback(null)}}/>}
 
-    <div className=" px-8 mt-3 sm:px-20 sm:mt-6 md:px-[120px] md:mt-7 lg:px-[200px] lg:mt-7 mb-25 ">
+    {blog.length >=1 ? <div className=" px-8 mt-3 sm:px-20 sm:mt-6 md:px-[120px] md:mt-7 lg:px-[200px] lg:mt-7 mb-25 ">
       {blog?.map((item:item)=>{
         return(
         <div className="border-b mt-2 relative" key={item.id}>
         <div className="flex items-end gap-1 mb-1 w-full">
-        <div className="flex items-end gap-1 w-fit" onClick={()=>{
+        <div className="flex items-end gap-1 w-fit hover:cursor-pointer" onClick={()=>{
             if(item.authorId===context?.user.id){
                 navigation("/profile")
+            }else{
+                navigation(`/profile/${item.authorId}`);
             }
-            // }else{
-            //     navigation(`/profile/${item.authorId}`);
-            // }
+
         }}>
         <div className={`w-7 h-7 rounded-full ${colorMap[item.author.picture]} flex justify-center text-white items-center pb-0.5`}>{item.author?.name.charAt(0)}</div>
         <h1 className="text-md font-semibold md:text-lg md:ml-1" 
@@ -100,7 +101,11 @@ function Blog1({blog ,hasMore ,ref ,isProfilePost}:Children) {
       {hasMore && <div ref={ref} className="flex justify-center mt-3">
         <div className="w-12 h-12 border-4 border-black border-dashed border-t-transparent rounded-full animate-spin"></div>
       </div>}
-    </div>
+    </div> : <div className=" sm:px-20 sm:mt-6 md:px-[120px] md:mt-7 lg:px-[200px] lg:mt-7 mb-25 text-xl font-semibold">
+            <div className="w-full h-35  flex justify-center flex-col items-center">
+            <div className=" h-full w-30" style={{ backgroundImage: `url("${noblogs}")`, backgroundSize: 'contain', backgroundPosition: 'center' }}></div>
+            </div>
+      </div>}
     </>
   )
 }

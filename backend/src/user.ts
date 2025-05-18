@@ -275,3 +275,37 @@ userRouter.put("/user/updateProfile",async(c)=>{
     return c.json({message:"Internal Error"})
   }
 })
+
+userRouter.get("/user/profile/:id",async(c)=>{
+   const prisma = new PrismaClient({
+		datasourceUrl: c.env?.DATABASE_URL	,
+	}).$extends(withAccelerate());
+
+  const id=Number(c.req.param("id"))
+  try{
+    const user=await prisma.user.findUnique({
+      where:{
+        id:id,
+      },
+      include:{
+        posts:{
+          select:{
+            id:true,
+            likeCount:true,
+            title:true,
+            content:true,
+            author:true,
+            updatedAt:true,
+            authorId:true,
+          }
+        },
+      }
+    })
+
+    c.status(201)
+    return c.json({user:user})
+  }catch(err){
+    c.status(401)
+    c.json({message:"Internal Server"})
+  }
+})

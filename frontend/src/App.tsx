@@ -12,6 +12,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
 import Profile from "./pages/Profile"
 import MyPosts from "./component/MyPosts"
 import EditProfile from "./component/EditProfile"
+import OtherProfile from "./component/OtherProfile"
 
 export  type item={
   id :number,     
@@ -87,7 +88,7 @@ function App() {
         <Route path="saved" element={<MySavedPosts />} /> */}
       </Route>
       <Route path='/editProfile' element={<ProtectedWrapper><EditProfile/></ProtectedWrapper>}/>
-      <Route path="/profile/:id" element={<ProtectedWrapper>usuus</ProtectedWrapper>}/>
+      <Route path="/profile/:id" element={<ProtectedWrapper><OtherProfile/></ProtectedWrapper>}/>
     </Routes>
 
     </BrowserRouter>

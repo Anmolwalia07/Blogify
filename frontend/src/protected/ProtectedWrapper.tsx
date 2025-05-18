@@ -20,6 +20,7 @@ function ProtectedWrapper({ children }: Dashboard) {
       navigate("/login");
       return;
     }
+
     axios
       .get(`${API_url}/user/profile`, {
         headers: {
@@ -28,7 +29,6 @@ function ProtectedWrapper({ children }: Dashboard) {
       })
       .then((res) => {
         if (res.data?.user) {
-          console.log(res.data.user)
           context?.setUser(res.data.user);
         } else {
           navigate("/login");
@@ -66,6 +66,8 @@ function ProtectedWrapper({ children }: Dashboard) {
         setLoading(false)
         console.log(e);
       })
+
+
   }, [token,navigate,location.state]);
 
   // 🛑 Show nothing or a loader while verifying

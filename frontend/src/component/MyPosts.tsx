@@ -4,6 +4,7 @@ import Blog1 from "./1Blog";
 import { useEffect, useRef, useState } from "react";
 import { useInView } from "react-intersection-observer";
 import { useLocation } from "react-router"; // ✅ Fix: react-router-dom
+import Loader from "./Loader";
 
 function MyPosts() {
   const PageSize = 4;
@@ -68,7 +69,10 @@ function MyPosts() {
   }, [inView]);
 
   return (
-    <Blog1 blog={blog} hasMore={hasMore} ref={ref} isProfilePost={true} />
+    <>
+    {loading && <Loader/>}
+        <Blog1 blog={blog} hasMore={hasMore} ref={ref} isProfilePost={true} />
+    </>
   );
 }
 

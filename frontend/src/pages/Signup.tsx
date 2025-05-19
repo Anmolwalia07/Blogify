@@ -53,6 +53,7 @@ function Signup() {
         <form onSubmit={handleSubmit} className="flex flex-col gap-1 w-full px-10 mt-6">
             <label className="font-semibold">Username</label>
             <input type="text"
+            minLength={2}
             value={formData.name}
             onChange={(e)=>{
               setFormData({...formData,name:e.target.value})
@@ -67,11 +68,12 @@ function Signup() {
             type="email" className="border rounded p-2 px-4 outline-none" placeholder="example@gmail.com" required></input>
             <label  className="font-semibold">Password</label>
             <input
+            minLength={6}
             value={formData.password}
             onChange={(e)=>{
               setFormData({...formData,password:e.target.value})
             }}
-            type="password" className="border rounded p-2 px-4 outline-none" placeholder="example@gmail.com" required></input>
+            type="password" className="border rounded p-2 px-4 outline-none" placeholder="example123" required></input>
             <button type="submit" className="bg-black mt-4 p-1.5 text-white font-semibold text-lg rounded hover:cursor-pointer">SignUp</button>
         </form>
         </div>

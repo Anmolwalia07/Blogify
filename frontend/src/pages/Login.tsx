@@ -55,9 +55,10 @@ function Login() {
             }}  type="email" className="border rounded p-2 px-4 outline-none" placeholder="example@gmail.com" required></input>
             <label  className="font-semibold">Password</label>
             <input 
+            minLength={6}
             onChange={(e)=>{
               setFormData({...formData,password:e.target.value})
-            }} type="password" className="border rounded p-2 px-4 outline-none" placeholder="example@gmail.com" required></input>
+            }} type="password" className="border rounded p-2 px-4 outline-none" placeholder="example123" required></input>
             <button type="submit" className="bg-black mt-4 p-1.5 text-white font-semibold text-lg rounded hover:cursor-pointer">Login</button>
         </form>
         </div>

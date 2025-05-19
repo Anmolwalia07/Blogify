@@ -127,7 +127,7 @@ function PostMain() {
                 setPost({...post,title:e.target.value})
                 context?.setPost({...context.post,title:e.target.value})
             }}
-            type="text" placeholder="title" className="md:text-4xl text-3xl border-b outline-0 p-2"/>
+            type="text" placeholder="title" className="md:text-4xl text-3xl border-b outline-0 "/>
             <textarea
                 onChange={(e)=>{
                     setPost({...post,content:e.target.value})
@@ -136,7 +136,7 @@ function PostMain() {
                 value={context?.post.content}
                 ref={textareaRef}
                 onInput={handleInput}
-                className="md:text-3xl text-2xl mt-2 outline-0 border-b w-full resize-none overflow-hidden py-3 min-h-30 md:min-h-40 p-2"
+                className="md:text-3xl text-2xl mt-2 outline-0 border-b w-full resize-none overflow-hidden py-3 min-h-30 md:min-h-40 "
                 placeholder="your story"
                 rows={1}
                 ></textarea>        

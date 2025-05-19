@@ -20,7 +20,11 @@ function ProfileMain() {
           }}
           className="text-2xl z-5"/>
           <div className="w-full flex justify-center tracking-wider "><h1>Profile</h1></div>
-          <IoSettingsSharp className="mt-1 text-2xl ml-1"/>
+          <IoSettingsSharp 
+          onClick={()=>{
+            navigation("/setting")
+          }}
+          className="mt-1 text-2xl ml-1"/>
     </div>
     
     <div className="flex flex-col items-center w-full px-4 overflow-hidden sm:px-10 md:mt-7 md:px-[120px] lg:px-[200px]">

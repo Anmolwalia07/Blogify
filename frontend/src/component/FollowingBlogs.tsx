@@ -11,8 +11,9 @@ function FollowingBlogs() {
   return (
 <div className=" px-8 mt-3 sm:px-20 sm:mt-6 md:px-[120px] md:mt-7 lg:px-[200px] lg:mt-7">
       <div className="border-b mt-2">
-        <h1 className="text-lg font-semibold">lalalalala</h1>
-        <h1 className="font-semibold text-xl">Title</h1>
+         <div className="flex gap-1 items-end"><div className={`w-7 h-7 rounded-full bg-red-300 flex justify-center text-white items-center pb-0.5`}>x</div>
+                <h1 className="text-md font-semibold md:text-lg md:ml-1" 
+                >Unknown</h1></div>
         <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam atque optio saepe inventore at dolorem nostrum! Adipisci iure voluptas nobis corporis ea</p>
          {/* like count */}
         

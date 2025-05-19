@@ -4,8 +4,8 @@ import { colorMap } from "../App";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { API_url } from "../url";
-import Loader from "./Loader";
-import Blog1 from "./1Blog";
+import Loader from "../component/Loader";
+import Blog1 from "../component/1Blog";
 
 
 function OtherProfile() {
@@ -82,11 +82,15 @@ function OtherProfile() {
         </div>
     </div>
     <div className="flex gap-3 px-6 w-full justify-center">
-          <div className="w-full lg:w-[60%] mt-2 tracking-wider text-lg sm:w-[70%] flex gap-3">
+          <div className="w-full lg:w-[60%] mt-2 tracking-wider text-lg sm:w-[70%] flex gap-3 font-bold">
             Posts
         </div>
+        
     </div>
-    <Blog1 isProfilePost={false} blog={user?.posts} hasMore={false} ref={false}/>
+    <div  className="lg:px-[100px]">
+      <Blog1 isProfilePost={false} blog={user?.posts} hasMore={false} ref={false}/>
+    </div>
+      
     </>
   )
 }

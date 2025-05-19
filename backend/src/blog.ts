@@ -269,10 +269,11 @@ blogRouter.put('/updateLikeCount/:id',async(c)=>{
 	
 })
 
-blogRouter.put('/update', async (c) => {
+blogRouter.put('/blogedit/:id', async (c) => {
 	const userId = c.get('userId');
+    const id=Number(c.req.param("id"))
 	const prisma = new PrismaClient({
-		datasourceUrl: c.env?.DATABASE_URL	,
+		datasourceUrl: c.env?.DATABASE_URL,
 	}).$extends(withAccelerate());
 
 	const body = await c.req.json();
@@ -283,12 +284,12 @@ blogRouter.put('/update', async (c) => {
 	try{
         await prisma.post.update({
             where: {
-                id: body.id,
+                id:id,
                 authorId: Number(userId)
             },
             data: {
                 title: body.title,
-                content: body.content
+                content: body.content,
             }
         });
         c.status(201);
@@ -360,4 +361,37 @@ blogRouter.delete('/delete/:id',async(c)=>{
         console.log(e)
         return c.json({error:"error"})
     }
+})
+
+
+blogRouter.get("blogedit/:id",async(c)=>{
+    const id=Number(c.req.param("id"));
+    const prisma = new PrismaClient({
+		datasourceUrl: c.env?.DATABASE_URL	,
+	}).$extends(withAccelerate());
+
+    try{
+    const response=await prisma.post.findUnique({
+        where:{
+            id:id
+        },
+        select:{
+            authorId:true,
+            id:true,
+            title:true,
+            content:true
+        }
+    })
+    c.status(201)
+    return c.json({
+        blog:response
+    })
+
+    }catch(e){
+        c.status(401)
+        return c.json({
+            message:"Internal Error"
+        })
+    }
+
 })

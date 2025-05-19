@@ -19,6 +19,6 @@ exports.createPostInput = zod_1.default.object({
     content: zod_1.default.string().min(10),
 });
 exports.updatePostInput = zod_1.default.object({
-    title: zod_1.default.string().min(1).optional(),
-    content: zod_1.default.string().min(1).optional(),
+    title: zod_1.default.string().min(3).optional(),
+    content: zod_1.default.string().min(10).optional(),
 });

@@ -3,7 +3,6 @@ import { UserContext } from "../context/UserContext";
 import { API_url } from "../url";
 import axios from "axios";
 import { useInView } from 'react-intersection-observer';
-
 import Blog1 from "./1Blog";
 
 
@@ -46,8 +45,9 @@ function Blogs() {
 
 
   return (
-    
+    <>
     <Blog1 hasMore={hasMore} isProfilePost={false} ref={ref} blog={blog}/>
+    </>
   )
 }
 

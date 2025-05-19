@@ -8,11 +8,14 @@ import FollowingBlogs from "./component/FollowingBlogs"
 import Post from "./pages/Post"
 import ScrollToTop  from "./component/ScrollToTop"
 import DrafedBlogs from "./pages/DrafedBlogs"
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
 import Profile from "./pages/Profile"
 import MyPosts from "./component/MyPosts"
-import EditProfile from "./component/EditProfile"
-import OtherProfile from "./component/OtherProfile"
+import EditProfile from "./pages/EditProfile"
+import OtherProfile from "./pages/OtherProfile"
+import SettingPage from "./pages/SettingPage"
+import IndivdualBlog from "./pages/IndivdualBlog"
+import SearchPage from "./pages/SearchPage"
+import EditBlogPage from "./pages/EditPage"
 
 export  type item={
   id :number,     
@@ -38,7 +41,7 @@ export  type item={
     userId:number
   }
 
-  type Author={
+  export  type Author={
     id:number,
     name:string,
     email:string,
@@ -67,9 +70,7 @@ export  type item={
   // add more as needed
 };
 function App() {
-  const queryClient=new QueryClient();
   return (
-    <QueryClientProvider client={queryClient}>
     <BrowserRouter>
     <Routes >
       <Route path="/signup" element={<Signup/>}/>
@@ -78,7 +79,6 @@ function App() {
         <Route path="/" element={<ProtectedWrapper><Blogs/></ProtectedWrapper>}/>
         <Route path="/following" element={<FollowingBlogs/>}/>
       </Route>
-      
         <Route path="/post" element={<ProtectedWrapper> <ScrollToTop/><Post/></ProtectedWrapper>}/>
         <Route path="/blog/drafted" element={<ProtectedWrapper> <ScrollToTop/><DrafedBlogs/></ProtectedWrapper>}/>
 
@@ -89,10 +89,14 @@ function App() {
       </Route>
       <Route path='/editProfile' element={<ProtectedWrapper><EditProfile/></ProtectedWrapper>}/>
       <Route path="/profile/:id" element={<ProtectedWrapper><OtherProfile/></ProtectedWrapper>}/>
+      <Route path="/setting" element={<ProtectedWrapper><SettingPage/></ProtectedWrapper>}/>
+
+      <Route path="/blog/:id" element={<ProtectedWrapper><IndivdualBlog/></ProtectedWrapper>}/>  
+      <Route path="/search" element={<ProtectedWrapper><SearchPage/></ProtectedWrapper>}/>
+      <Route path="/editblog/:id" element={<ProtectedWrapper><EditBlogPage/></ProtectedWrapper>}/>
     </Routes>
 
     </BrowserRouter>
-    </QueryClientProvider>
   )
 }
 

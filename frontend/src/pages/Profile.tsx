@@ -13,7 +13,9 @@ function Profile() {
             <NavLink to={`/profile/saved`}>Saved</NavLink> */}
            </div>
     </div>
-    <Outlet/>
+    <div className="xl:w-[90%] xl:ml-20 xl:flex xl:flex-col ">
+      <Outlet/>
+    </div>
     <BottomBar/>
     </>
   )

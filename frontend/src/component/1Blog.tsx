@@ -57,7 +57,7 @@ function Blog1({blog ,hasMore ,ref ,isProfilePost}:Children) {
       />}
       {feedback?.message && <FeedbackMessage type={feedback.type} message={feedback.message} onClose={()=>{setFeedback(null)}}/>}
 
-    {blog.length >=1 ? <div className=" px-8 mt-3 sm:px-20 sm:mt-6 md:px-[120px] md:mt-7 lg:px-[200px] lg:mt-7 mb-25 ">
+    {blog?.length >=1 ? <div className="px-6 mt-3 sm:px-20 sm:mt-6 md:px-[120px] md:mt-7 lg:px-[220px] lg:mt-7 mb-25 ">
       {blog?.map((item:item)=>{
         return(
         <div className="border-b mt-2 relative" key={item.id}>
@@ -82,11 +82,17 @@ function Blog1({blog ,hasMore ,ref ,isProfilePost}:Children) {
                 setId(item.id)
               }}
               className="text-xl font-bold md:text-2xl mt-[0.5px] hover:cursor-pointer"/>
-              <FiEdit className="text-lg font-bold md:text-xl hover:cursor-pointer"/>
+              <FiEdit onClick={()=>{
+                navigation(`/editblog/${item.id}`);
+              }} className="text-lg font-bold md:text-xl hover:cursor-pointer"/>
             </div>}
         </div>
-        <h1 className="font-semibold text-xl md:text-2xl overflow-hidden mt-1 pl-1">{item.title}</h1>
+        <div onClick={()=>{
+          navigation(`blog/${item.id}`)
+        }}>
+          <h1  className="font-semibold text-xl md:text-2xl overflow-hidden mt-1 pl-1">{item.title}</h1>
         <p className=" text-md md:text-lg text-wrap mt-1 pl-1 max-h-21 md:max-h-25 overflow-y-hidden">{item.content}</p>
+          </div>
         {/* like count */}
 
         <div className="flex justify-between items-center mt-1">

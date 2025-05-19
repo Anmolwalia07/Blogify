@@ -23,8 +23,8 @@ export const createPostInput = z.object({
 export type CreatePostType = z.infer<typeof createPostInput>;
 
 export const updatePostInput = z.object({
-    title: z.string().min(1).optional(),
-    content: z.string().min(1).optional(),
+    title: z.string().min(3).optional(),
+    content: z.string().min(10).optional(),
 });
 
 export type UpdatePostType = z.infer<typeof updatePostInput>;

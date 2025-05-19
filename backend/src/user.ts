@@ -309,3 +309,37 @@ userRouter.get("/user/profile/:id",async(c)=>{
     c.json({message:"Internal Server"})
   }
 })
+
+
+userRouter.get('/user/find',async(c)=>{
+  const prisma = new PrismaClient({
+		datasourceUrl: c.env?.DATABASE_URL	,
+	}).$extends(withAccelerate());
+
+  const id=Number(c.get('userId'))
+  const search=c.req.query('search')
+  try{
+   const response=await prisma.user.findMany({
+    where:{
+      name:{
+        contains:search,
+        mode:'insensitive'
+      },
+      id:{
+        not:id
+      }
+    },
+    select:{
+      id:true,
+      name:true,
+      picture:true
+    },
+    take:5
+   })
+   c.status(201)
+   return c.json({users:response})
+  }catch(err){
+    c.status(401)
+    return c.json({message:"Internal Error"})
+  }
+})

@@ -5,8 +5,8 @@ import { useNavigate } from "react-router";
 import { colorMap } from "../App";
 import axios from "axios";
 import { API_url } from "../url";
-import Loader from "./Loader";
-import FeedbackMessage from "./FeedbackMessage";
+import Loader from "../component/Loader";
+import FeedbackMessage from "../component/FeedbackMessage";
 
 function EditProfile() {
 
@@ -52,7 +52,7 @@ function EditProfile() {
 
           
           <div className="flex flex-col items-center  w-full  ">
-            <div className="w-full md:w-[50%] flex flex-col items-center ">
+            <div className="w-full md:w-[70%] xl:w-[50%]  flex flex-col items-center ">
               <div className={`${colorMap[formData?.picture || 0]} ml-[-29px] w-20 h-20 mt-8 text-white flex justify-center text-4xl pb-2 items-center font-semibold rounded-full`}>{context?.user.name.charAt(0)}</div>   
 
              <div className="mt-2 flex gap-1 ml-[-10px]">

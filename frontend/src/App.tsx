@@ -48,7 +48,8 @@ export  type item={
     bio:string,
     picture:string
     likedPosts:LikedPosts[],
-    savedPosts:SavedPosts[]
+    savedPosts:SavedPosts[],
+    updatedAt:string
   }
 
   export type LikedPosts={

@@ -228,6 +228,13 @@ blogRouter.get("/:id",async(c)=>{
                     userId:true,
                     postId:true
                 }
+            },
+            author:{
+                select:{
+                    name:true,
+                    picture:true,
+                    updatedAt:true
+                }
             }
         }
     })

@@ -96,7 +96,7 @@ function Blog1({blog ,hasMore ,ref ,isProfilePost}:Children) {
         {/* like count */}
 
         <div className="flex justify-between items-center mt-1">
-          <LikeComponent item={item}/>
+          <LikeComponent id={item.id}/>
         {/* Saved */}
 
         <SavedBlog item={item}/>

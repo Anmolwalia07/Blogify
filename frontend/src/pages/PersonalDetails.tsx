@@ -54,9 +54,10 @@ function PersonalDetails() {
             <div className="mt-2 border  rounded-xl">
                 <div className="border-b w-full px-4 py-2">
                     <h1 className="flex items-center text-lg gap-2   tracking-wider"><RiLoginBoxFill/>Login details </h1>
-                <h1 className="ml-8 tracking-wide text-sm">Device: {deviceInfo?.product}</h1>
+                {deviceInfo?.product && <h1 className="ml-8 tracking-wide text-sm">Device: {deviceInfo?.product}</h1>}
                 <h1 className="ml-8 tracking-wide text-sm">Browser: {deviceInfo?.browser.split(" ")[0]}</h1>
-
+                {deviceInfo?.os &&<h1 className="ml-8 tracking-wide text-sm">Browser: {deviceInfo?.os.split(" ")[0]}</h1>
+}
                 </div>
                 <h1 className="flex items-center text-lg gap-2  px-4 py-2 tracking-wider"><DiScala/>Joined details</h1>
                 <h1 className="text-sm ml-10 mt-[-8px]  pb-2">{context?.user.createdAt.split('T')[0]}</h1>

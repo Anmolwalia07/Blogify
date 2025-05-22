@@ -16,6 +16,10 @@ import SettingPage from "./pages/SettingPage"
 import IndivdualBlog from "./pages/IndivdualBlog"
 import SearchPage from "./pages/SearchPage"
 import EditBlogPage from "./pages/EditPage"
+import UpdatePassword from "./pages/UpdatePassword"
+import YourActivities from "./pages/YourActivities"
+import MyLikedPosts from "./component/MyLikedPosts"
+import MySavedPosts from "./component/MySavedPosts"
 
 export  type item={
   id :number,     
@@ -85,8 +89,6 @@ function App() {
 
       <Route path="/profile"  element={<ProtectedWrapper><Profile /></ProtectedWrapper>}>
         <Route index path="/profile" element={<MyPosts />} />
-        {/* <Route path="liked" element={<MyLikedPosts />} />
-        <Route path="saved" element={<MySavedPosts />} /> */}
       </Route>
       <Route path='/editProfile' element={<ProtectedWrapper><EditProfile/></ProtectedWrapper>}/>
       <Route path="/profile/:id" element={<ProtectedWrapper><OtherProfile/></ProtectedWrapper>}/>
@@ -95,6 +97,12 @@ function App() {
       <Route path="/blog/:id" element={<ProtectedWrapper><IndivdualBlog/></ProtectedWrapper>}/>  
       <Route path="/search" element={<ProtectedWrapper><SearchPage/></ProtectedWrapper>}/>
       <Route path="/editblog/:id" element={<ProtectedWrapper><EditBlogPage/></ProtectedWrapper>}/>
+
+      <Route path="/passwordAndSecurity" element={<ProtectedWrapper><UpdatePassword/></ProtectedWrapper>}/>
+      <Route path="/activity" element={<ProtectedWrapper><YourActivities/></ProtectedWrapper>}>
+      <Route index path="/activity" element={<MyLikedPosts />} />
+        <Route path="/activity/saved" element={<MySavedPosts />} />
+      </Route>
     </Routes>
 
     </BrowserRouter>

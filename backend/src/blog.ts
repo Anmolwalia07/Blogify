@@ -24,6 +24,7 @@ blogRouter.use("/*",async(c,next)=>{
     const token=c.req.header("Authorization")?.split(" ")[1];
     if(!token){
       return c.json({message:"No token"});
+
     }
     try{
       const decode= await verify(token,c.env.JWT_SECRET);
@@ -36,6 +37,88 @@ blogRouter.use("/*",async(c,next)=>{
       return c.json({message:"Unauthorized"})
     }
   })
+
+blogRouter.get("/likedPost",async(c)=>{
+    const prisma = new PrismaClient({
+		datasourceUrl: c.env?.DATABASE_URL,
+	}).$extends(withAccelerate()); 
+    const id=Number(c.get('userId'))
+    const skip = parseInt(c.req.query('skip') || '0');
+    const take = parseInt(c.req.query('take') || '4');
+    try{
+    const posts = await prisma.post.findMany({
+    skip,
+    take,
+     where: {
+    likedBy: {
+      some: {
+        userId: id,
+      },
+    },
+    },
+    select: {
+    id: true,
+    title: true,
+    content: true,
+    likeCount: true,
+    author: true,
+    savedBy: true,
+    likedBy: true,
+  },
+  });
+    c.status(201)
+    return c.json({
+        blogs:posts,
+    })
+    }catch(e){
+        c.status(401)
+        return c.json({
+            message:"Internal Error"
+        })
+    }
+
+})
+
+blogRouter.get("/savedPost",async(c)=>{
+    const prisma = new PrismaClient({
+		datasourceUrl: c.env?.DATABASE_URL,
+	}).$extends(withAccelerate()); 
+    const id=Number(c.get('userId'))
+    const skip = parseInt(c.req.query('skip') || '0');
+    const take = parseInt(c.req.query('take') || '4');
+    try{
+    const posts = await prisma.post.findMany({
+    skip,
+    take,
+     where: {
+    savedBy: {
+      some: {
+        userId: id,
+      },
+    },
+    },
+    select: {
+    id: true,
+    title: true,
+    content: true,
+    likeCount: true,
+    author: true,
+    savedBy: true,
+    likedBy: true,
+  },
+  });
+    c.status(201)
+    return c.json({
+        blogs:posts,
+    })
+    }catch(e){
+        c.status(401)
+        return c.json({
+            message:"Internal Error"
+        })
+    }
+
+})
 
 blogRouter.post('/create', async (c) => {
 	const userId = c.get('userId'); 
@@ -371,7 +454,7 @@ blogRouter.delete('/delete/:id',async(c)=>{
 })
 
 
-blogRouter.get("blogedit/:id",async(c)=>{
+blogRouter.get("/blogedit/:id",async(c)=>{
     const id=Number(c.req.param("id"));
     const prisma = new PrismaClient({
 		datasourceUrl: c.env?.DATABASE_URL	,
@@ -402,3 +485,4 @@ blogRouter.get("blogedit/:id",async(c)=>{
     }
 
 })
+

@@ -88,7 +88,7 @@ function Blog1({blog ,hasMore ,ref ,isProfilePost}:Children) {
             </div>}
         </div>
         <div onClick={()=>{
-          navigation(`blog/${item.id}`)
+          navigation(`/blog/${item.id}`)
         }}>
           <h1  className="font-semibold text-xl md:text-2xl overflow-hidden mt-1 pl-1">{item.title}</h1>
         <p className=" text-md md:text-lg text-wrap mt-1 pl-1 max-h-21 md:max-h-25 overflow-y-hidden">{item.content}</p>

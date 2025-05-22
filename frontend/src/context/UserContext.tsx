@@ -7,7 +7,8 @@ interface User {
   name:string,
   email:string,
   bio:string,
-  picture:string
+  picture:string,
+  password:string,
   likedPosts:LikedPosts[],
   savedPosts:SavedPosts[],
   posts:item[]
@@ -35,7 +36,6 @@ export interface UserContextType {
   setBlog:React.Dispatch<React.SetStateAction<Blog>>;
   draftedCount:DraftedCount,
   setDraftedCount:React.Dispatch<React.SetStateAction<DraftedCount>>;
-
 }
 
 
@@ -50,7 +50,7 @@ interface UserProviderProps {
 
 // 5. Provider component
 export default function UserProvider({ children }: UserProviderProps) {
-  const [user, setUser] = useState<User>({ name: '', email: '' ,id:0,bio:'',picture:'',posts:[],likedPosts:[],savedPosts:[]});
+  const [user, setUser] = useState<User>({ name: '', email: '' ,id:0,bio:'',picture:'',password:'',posts:[],likedPosts:[],savedPosts:[]});
   const [post, setPost] = useState<Post>({ title: '',content: ''})
   const [blog, setBlog]=useState<Blog>([]);
   const [draftedCount, setDraftedCount] = useState<DraftedCount>(0)

@@ -4,8 +4,6 @@ import { PrismaClient } from './generated/prisma/edge'
 import { withAccelerate } from '@prisma/extension-accelerate'
 import {signinInput , signupInput} from '@anmolwalia07/medium-common'
 
-
-
 export const userRouter=new Hono<
 {
     Bindings:{
@@ -91,7 +89,7 @@ userRouter.post("/login",async(c)=>{
       return c.json({message :"Invaild Password"});
     }
 
-    const jwt = await sign({ id: user.id ,exp: Math.floor(Date.now() / 1000) + 60 * 60}, c.env.JWT_SECRET,);
+    const jwt = await sign({ id: user.id ,exp: Math.floor(Date.now() / 1000) + 60 * 6000}, c.env.JWT_SECRET,);
 		c.status(201)
     return c.json({ jwt });
   }
@@ -340,6 +338,31 @@ userRouter.get('/user/find',async(c)=>{
    return c.json({users:response})
   }catch(err){
     c.status(401)
+    return c.json({message:"Internal Error"})
+  }
+})
+
+
+userRouter.put('/user/updatePassword',async(c)=>{
+   const prisma = new PrismaClient({
+		datasourceUrl: c.env?.DATABASE_URL	,
+	}).$extends(withAccelerate());
+  const id=Number(c.get('userId'));
+  const body=await c.req.json();
+  try{
+    const response=await prisma.user.update({
+      where:{
+        id:id,
+      },
+      data:{
+        password:body.updatePassword
+      }
+    })
+
+    c.status(201);
+    return c.json({message:"Update Password"})
+  }catch(e){
+    c.status(401);
     return c.json({message:"Internal Error"})
   }
 })

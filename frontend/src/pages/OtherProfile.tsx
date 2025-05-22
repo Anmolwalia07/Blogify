@@ -23,7 +23,6 @@ function OtherProfile() {
           Authorization:`Bearer ${token}`
         }
       }).then((res)=>{
-        console.log(res.data.user)
         setUser(res.data.user)
         setLoading(false)
       }).catch(()=>{
@@ -37,7 +36,7 @@ function OtherProfile() {
     <div className="flex  items-center py-4 shadow-md text-xl font-bold px-5  overflow-hidden ">
           <IoArrowBackSharp
           onClick={()=>{
-            navigation('/')
+            navigation(-1)
           }}
           className="text-2xl z-5"/>
           <div className="w-full flex justify-center tracking-wider "><h1>{user.name}</h1></div>

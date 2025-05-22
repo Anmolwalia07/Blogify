@@ -64,6 +64,7 @@ blogRouter.get("/likedPost",async(c)=>{
     author: true,
     savedBy: true,
     likedBy: true,
+    authorId:true
   },
   });
     c.status(201)
@@ -105,6 +106,7 @@ blogRouter.get("/savedPost",async(c)=>{
     author: true,
     savedBy: true,
     likedBy: true,
+    authorId:true
   },
   });
     c.status(201)

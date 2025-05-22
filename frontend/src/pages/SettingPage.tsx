@@ -23,9 +23,9 @@ function SettingPage() {
           <p className="text-xs">Manage your experience and account settings</p>
           <div className="flex gap-2 items-center text-sm mt-3"
           onClick={()=>{
-            navigation('/editProfile')
+            navigation('/personalDetails')
           }}
-          ><CgProfile /><h6>Profile details</h6></div>
+          ><CgProfile /><h6>Personal details</h6></div>
           <div
           onClick={()=>{
             navigation('/passwordAndSecurity')

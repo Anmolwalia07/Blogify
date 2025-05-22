@@ -16,7 +16,6 @@ const [searchData, setSearchData] = useState<string>('')
     const token=localStorage.getItem("token")
 
  const handleSubmit=()=>{
-    console.log(searchData);
     axios.get(`${API_url}/user/find?search=${searchData}`,{
       headers:{
         Authorization:`Bearer ${token}`

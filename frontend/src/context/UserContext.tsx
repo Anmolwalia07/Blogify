@@ -11,7 +11,8 @@ interface User {
   password:string,
   likedPosts:LikedPosts[],
   savedPosts:SavedPosts[],
-  posts:item[]
+  posts:item[],
+  createdAt:string
 }
 
 
@@ -50,7 +51,7 @@ interface UserProviderProps {
 
 // 5. Provider component
 export default function UserProvider({ children }: UserProviderProps) {
-  const [user, setUser] = useState<User>({ name: '', email: '' ,id:0,bio:'',picture:'',password:'',posts:[],likedPosts:[],savedPosts:[]});
+  const [user, setUser] = useState<User>({ name: '', email: '' ,id:0,bio:'',picture:'',password:'',posts:[],likedPosts:[],savedPosts:[],createdAt:''});
   const [post, setPost] = useState<Post>({ title: '',content: ''})
   const [blog, setBlog]=useState<Blog>([]);
   const [draftedCount, setDraftedCount] = useState<DraftedCount>(0)

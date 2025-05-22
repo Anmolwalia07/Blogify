@@ -20,6 +20,7 @@ import UpdatePassword from "./pages/UpdatePassword"
 import YourActivities from "./pages/YourActivities"
 import MyLikedPosts from "./component/MyLikedPosts"
 import MySavedPosts from "./component/MySavedPosts"
+import PersonalDetails from "./pages/PersonalDetails"
 
 export  type item={
   id :number,     
@@ -103,6 +104,7 @@ function App() {
       <Route index path="/activity" element={<MyLikedPosts />} />
         <Route path="/activity/saved" element={<MySavedPosts />} />
       </Route>
+      <Route path="/personalDetails" element={<ProtectedWrapper><PersonalDetails/></ProtectedWrapper>}/>
     </Routes>
 
     </BrowserRouter>
